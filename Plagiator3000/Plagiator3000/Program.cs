@@ -16,7 +16,11 @@ namespace Plagiator3000
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Model model = new Model();
+            IView view = new Form1();
+            Presenter presenter = new Presenter(view, model);
+
+            Application.Run((Form)view);
         }
     }
 }
