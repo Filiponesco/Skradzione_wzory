@@ -18,8 +18,8 @@ namespace Plagiator3000
             InitializeComponent();
             Dictionary<String, int> countsOriginal = CountLines(@"gawel_testy/oryg.txt");
             Dictionary<String, int> countsCopy1 = CountLines(@"gawel_testy/copy1.txt");
-            Dictionary<String, int> countsCopy2 = CountLines(@"gawel_testy/copy2.txt");
-            List<Dictionary<String, int>> copies = new List<Dictionary<String, int>>() { countsCopy1, countsCopy2 };
+            //Dictionary<String, int> countsCopy2 = CountLines(@"gawel_testy/copy2.txt");
+            List<Dictionary<String, int>> copies = new List<Dictionary<String, int>>() { countsCopy1};
             int[,] array2D = ToArray(countsOriginal, copies);
             //jedynka juz zajeta przez oryginal
             for (int y = 0; y <= array2D.GetUpperBound(1); y++)
@@ -30,6 +30,7 @@ namespace Plagiator3000
                 }
                 textBox1.Text += "\r\n";
             }
+            textBox1.Text += Algorytm.CosineDistance(array2D);
         }
         private Dictionary<String, int> CountLines(String path)
         {
