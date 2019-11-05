@@ -8,10 +8,10 @@ namespace Plagiator3000
 {
     interface IView
     {
-        string fil { set; }
+        string file { set; }
         string direct { set; }
 
-        event Action Add_Fil;
+        event Action Add_File;
         event Action Add_Direc;
         event Action Start_Prog;
     }

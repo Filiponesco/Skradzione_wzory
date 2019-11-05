@@ -17,7 +17,7 @@ namespace Plagiator3000
             InitializeComponent();
         }
 
-        public string fil
+        public string file
         {
             set
             {
@@ -32,13 +32,13 @@ namespace Plagiator3000
             }
         }
 
-        public event Action Add_Fil;
+        public event Action Add_File;
         public event Action Add_Direc;
         public event Action Start_Prog;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Add_Fil.Invoke();
+            Add_File.Invoke();
         }
 
         private void button2_Click(object sender, EventArgs e)
