@@ -58,25 +58,64 @@ namespace Plagiator3000
         public string Orig_Latex_Operation() //Operacje na oryginalnym latexie
         {
             string File_Latex = path;
-            string text = File.ReadAllText(File_Latex).Replace(" ", "");
+            string text = File.ReadAllText(File_Latex);
 
-            string[] text_split = text.Split(new char[] {' '});
+            Console.WriteLine("Tekst: " + text);
 
-            //.Split(new Char[] { ' ' })
+            text = File.ReadAllText(File_Latex).Replace(" ", "");
 
-            //foreach (string tx in text)
-            //{
-            //    Console.WriteLine(tx);
-            //}
+            string[] text_split = text.Split(new char[] {});
+           
+            string[] new_text = new string[text_split.Length];
 
-            string newtext = string.Concat(text_split);
-            Console.WriteLine(newtext);
-
+            int j = 0;
             for (int i = 0; i < text_split.Length; i++)
             {
-                Console.WriteLine(i + " el: " + text_split[i]); 
+                if(text_split[i] != "")
+                {
+                    new_text[j] = text_split[i];
+                    j++;
+                } 
             }
-            
+
+            //Console.WriteLine("\nNowy text:");
+
+            //for (int i = 0; i < j; i++)
+            //{
+            //    Console.WriteLine(i + " el: " + new_text[i]);
+            //}
+
+            string[] mat = new string[new_text.Length];
+
+            int l = 0;
+
+            for (int i = 0; i < new_text.Length; i++)
+            {
+                if(new_text[i] == @"\begin{math}")
+                {
+                    mat[l] = new_text[i + 1];
+                    l++;
+                }
+                else if(new_text[i] == @"\begin{displaymath}")
+                {
+                    mat[l] = new_text[i + 1];
+                    l++;
+                }
+                else if(new_text[i] == @"\begin{equation}")
+                {
+                    mat[l] = new_text[i + 1];
+                    l++;
+                }
+            }
+
+
+            Console.WriteLine("Wyrazenia matematyczne: ");
+            for (int i = 0; i < l; i++)
+            {
+                Console.WriteLine(i + " el: " + mat[i]);
+            }
+
+
             return File_Latex;
         }
 
