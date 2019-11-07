@@ -11,6 +11,7 @@ namespace Plagiator3000
     class Model
     {
         string path = "d:\\";
+        string path_dir = "d:\\";
         public string Load_Orig_Latex() //wczytywanie pliku z oryginalnym latexem
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -32,19 +33,50 @@ namespace Plagiator3000
             {
                 if(win.ShowDialog() == DialogResult.OK)
                 {
-                    path = win.SelectedPath;
+                    path_dir = win.SelectedPath;
                 }
             }
-            return path;
+            Load_Plagiat_Files(); //SPR ---------------------------------------------------------
+            return path_dir;
+        }
+
+        public void Load_Plagiat_Files() //Wczytuje pliki z folderu
+        {
+            var files = Directory.EnumerateFiles(path_dir, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".tex"));
+
+            //string[] fileEntries = Directory.GetFiles(path_dir);
+            foreach (string fileName in files)
+            {
+                Console.WriteLine(fileName);
+                string File_Latex = fileName;
+                string text = File.ReadAllText(File_Latex);
+                Console.WriteLine(text);
+            }
+            // ProcessFile(fileName);
         }
 
         public string Orig_Latex_Operation() //Operacje na oryginalnym latexie
         {
             string File_Latex = path;
-            string text = File.ReadAllText(File_Latex);
+            string text = File.ReadAllText(File_Latex).Replace(" ", "");
 
-            Console.WriteLine(text);
+            string[] text_split = text.Split(new char[] {' '});
 
+            //.Split(new Char[] { ' ' })
+
+            //foreach (string tx in text)
+            //{
+            //    Console.WriteLine(tx);
+            //}
+
+            string newtext = string.Concat(text_split);
+            Console.WriteLine(newtext);
+
+            for (int i = 0; i < text_split.Length; i++)
+            {
+                Console.WriteLine(i + " el: " + text_split[i]); 
+            }
+            
             return File_Latex;
         }
 

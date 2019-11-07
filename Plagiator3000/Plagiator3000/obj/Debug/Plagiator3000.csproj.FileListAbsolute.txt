@@ -8,3 +8,13 @@ C:\Users\matia\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj
 C:\Users\matia\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CoreCompileInputs.cache
 C:\Users\matia\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.exe
 C:\Users\matia\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.pdb
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe.config
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.pdb
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csprojAssemblyReference.cache
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Form1.resources
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Properties.Resources.resources
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.GenerateResource.cache
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CoreCompileInputs.cache
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.exe
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.pdb
