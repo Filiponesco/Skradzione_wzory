@@ -294,78 +294,7 @@ namespace Plagiator3000
 
         public Boolean Euclidan_algorithm(string wzor_bazowy, string wzor_testowy)//algorytm Euclidan sprawdza plagiat i daje boola
         {
-            string dany_wzor="ax+b=c";//tu dopisuje wzór
-            char[] p = new char[200];
-            int p0 = 0;
-
-            for (int i=0; i< dany_wzor.Length; i++)//leci po każdym polu wzoru
-            {
-                if(dany_wzor[i] == '0' || dany_wzor[i] == '1' || dany_wzor[i] == '2' || dany_wzor[i] == '3' || dany_wzor[i] == '4' || dany_wzor[i] == '5' || dany_wzor[i] == '6' || dany_wzor[i] == '7' || dany_wzor[i] == '8' || dany_wzor[i] == '9')
-                {
-                    Console.WriteLine(dany_wzor[i]);
-                    p[p0] = dany_wzor[i];
-                    p0++;
-                }
-                else
-                {
-                    if(dany_wzor[i] == '+' || dany_wzor[i] == '-' || dany_wzor[i] == '*' || dany_wzor[i] == '/' || dany_wzor[i] == '=')
-                    {
-                        Console.WriteLine(dany_wzor[i]);
-                        p[p0] = dany_wzor[i];
-                        p0++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("#");
-                        p[p0] = '*';
-                        p0++;
-                        p[p0] = '1';
-                        p0++;
-                    }
-                }
-            }
-            Console.WriteLine(p);
-
-
-
-
-
-
-
-
-
-
-
-            int GCDRecursive(int a, int b)
-            {
-                //Base cases
-                if (a == 0)
-                    return b;
-
-                if (b == 0)
-                    return a;
-
-                if (a > b)
-                    return GCDRecursive(a % b, b);
-                else
-                    return GCDRecursive(a, b % a);
-            }
-
-            int GCD(int a, int b)
-            {
-                while (a != 0 && b != 0)
-                {
-                    if (a > b)
-                        a %= b;
-                    else
-                        b %= a;
-                }
-
-                if (a == 0)
-                    return b;
-                else
-                    return a;
-            }
+            
 
             return false;
         }
