@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using SautinSoft.Document;
 
 namespace Plagiator3000
 {
@@ -12,6 +13,7 @@ namespace Plagiator3000
     {
         string path = "d:\\";
         string path_dir = "d:\\";
+        double procent = 0.0;
         public string Load_Orig_Latex() //wczytywanie pliku z oryginalnym latexem
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -128,6 +130,8 @@ namespace Plagiator3000
             List<String> Raport = new List<string> { };
             int dl_bazy = baza.Count;
             int dl_testow = testy.Count;
+            double sprawdzenie_wzoru = 0.0;
+            double plagiat = 0.0;
 
             for (int i = 0; i < dl_testow; i++)
             {
@@ -138,15 +142,18 @@ namespace Plagiator3000
                     if (wzor == baza[o])// tu docelowo podstawiam funkcje algorytmu Euclidan_agorithm
                     {
                         Raport.Add("Wzór : " + wzor + " z pliku : " + s_pliku + " jest plagiatem wzoru z bazy : " + baza[o] + " o indeksie : " + o);
+                        plagiat++;
                     }
                 }
+                sprawdzenie_wzoru++;
             }
+            procent = (plagiat / sprawdzenie_wzoru) * 100.0;
 
-            Console.WriteLine("Raport Euclidan: ");//testowy print
-            foreach (string raport in Raport)
-            {
-                Console.WriteLine(raport);
-            }
+            //Console.WriteLine("Raport Euclidan: ");//testowy print
+            //foreach (string raport in Raport)
+            //{
+            //    Console.WriteLine(raport);
+            //}
 
             return Raport;
         }
@@ -281,7 +288,8 @@ namespace Plagiator3000
             List<string> Path = new List<string> { };
             Path.Add(path);
 
-            preEuclidan(baza(Path), testy(sciezki(Path_dir)));//WYWOLUJĘ POTĘŻNEGO EUCLIMANA ----------------------------> seniora (bo pre)
+            List<String> rep = preEuclidan(baza(Path), testy(sciezki(Path_dir)));//WYWOLUJĘ POTĘŻNEGO EUCLIMANA ----------------------------> seniora (bo pre)
+            Report(Path_dir, rep, procent);
         }
 
         private Boolean Euclidan_algorithm(string wzor_bazowy, string wzor_testowy)//algorytm Euclidan sprawdza plagiat i daje boola
@@ -318,6 +326,25 @@ namespace Plagiator3000
             }
 
             return false;
+        }
+
+        public void Report(string sciezka, List<String> raport, double procent)// raport wstępnie 
+        {
+            //(https://www.sautinsoft.com/products/document/examples/create-html-document-net-csharp-vb.php)
+            DocumentCore dc = new DocumentCore();
+            dc.Content.End.Insert("Raport \n \n", new CharacterFormat() { FontName = "Verdana", Size = 65.5f, FontColor = Color.Black });
+            dc.Content.End.Insert("Raport dotyczący folderu : " + sciezka + " \n", new CharacterFormat() { FontName = "Verdana", Size = 12f, FontColor = Color.Black });
+            dc.Content.End.Insert("Wykryto " + String.Format("{0:F2}", procent) + " % splagiatowanych wzorów \n \n \n", new CharacterFormat() { FontName = "Verdana", Size = 12f, FontColor = Color.Black });
+            dc.Content.End.Insert("Szczegółowe informacje :  \n", new CharacterFormat() { FontName = "Verdana", Size = 10, FontColor = Color.Black });
+            foreach (string rap in raport)
+            {
+                dc.Content.End.Insert(rap + " \n", new CharacterFormat() { FontName = "Verdana", Size = 9, FontColor = Color.Black });
+            }
+
+            dc.Save(@"C:\Users\Arkad\Desktop\TEST_ORIG\Raport.html");
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(@"C:\Users\Arkad\Desktop\TEST_ORIG\Raport.html") { UseShellExecute = true });
+            Console.WriteLine("Raport");
         }
 
     }
