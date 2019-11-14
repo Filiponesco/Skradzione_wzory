@@ -32,10 +32,9 @@ namespace Plagiator3000
 
         public void Operation()
         {
-            view.file = model.Orig_Latex_Operation();
-
-            
-            model.Euclidan();
+            //view.file = model.Orig_Latex_Operation();
+            model.Euclidan_algorithm("","");
+            //model.Euclidan();
 
         }
     }
