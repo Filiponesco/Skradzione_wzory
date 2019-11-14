@@ -36,7 +36,7 @@ namespace Plagiator3000
                     path_dir = win.SelectedPath;
                 }
             }
-            Load_Plagiat_Files(); //SPR ---------------------------------------------------------
+            //Load_Plagiat_Files(); //SPR ---------------------------------------------------------
             return path_dir;
         }
 
@@ -123,5 +123,202 @@ namespace Plagiator3000
         {
 
         }
+        public List<String> preEuclidan(List<String> baza, List<String[]> testy)//zbiera wszystko i daje do Euclidan
+        {
+            List<String> Raport = new List<string> { };
+            int dl_bazy = baza.Count;
+            int dl_testow = testy.Count;
+
+            for (int i = 0; i < dl_testow; i++)
+            {
+                string wzor = testy[i][0];//pobiera 1 wzór z listy
+                string s_pliku = testy[i][1];//pobiera ścieżkę do danego pliku
+                for (int o = 0; o < dl_bazy; o++)
+                {
+                    if (wzor == baza[o])// tu docelowo podstawiam funkcje algorytmu Euclidan_agorithm
+                    {
+                        Raport.Add("Wzór : " + wzor + " z pliku : " + s_pliku + " jest plagiatem wzoru z bazy : " + baza[o] + " o indeksie : " + o);
+                    }
+                }
+            }
+
+            Console.WriteLine("Raport Euclidan: ");//testowy print
+            foreach (string raport in Raport)
+            {
+                Console.WriteLine(raport);
+            }
+
+            return Raport;
+        }
+
+        public List<String> baza(List<String> sciezki) //Wyciąga wzory kopia od Matiego ale wyciągnąłem to co potrzebuje
+        {
+            List<String> wzory_baza = new List<string> { };//główna lista z bazą wzorów
+
+            foreach (string sciezka in sciezki)
+            {
+                string File_Latex = sciezka;
+                string text = File.ReadAllText(File_Latex);
+
+                text = File.ReadAllText(File_Latex).Replace(" ", "");
+
+                string[] text_split = text.Split(new char[] { });
+
+                string[] new_text = new string[text_split.Length];
+
+                int j = 0;
+                for (int i = 0; i < text_split.Length; i++)
+                {
+                    if (text_split[i] != "")
+                    {
+                        new_text[j] = text_split[i];
+                        j++;
+                    }
+                }
+
+                string[] mat = new string[new_text.Length];//tablica z wyodrębnionymi wzorami
+
+                int l = 0;
+
+                for (int i = 0; i < new_text.Length; i++)
+                {
+                    if (new_text[i] == @"\begin{math}")
+                    {
+                        mat[l] = new_text[i + 1];
+                        wzory_baza.Add(new_text[i + 1]);
+                        l++;
+                    }
+                    else if (new_text[i] == @"\begin{displaymath}")
+                    {
+                        mat[l] = new_text[i + 1];
+                        wzory_baza.Add(new_text[i + 1]);
+                        l++;
+                    }
+                    else if (new_text[i] == @"\begin{equation}")
+                    {
+                        mat[l] = new_text[i + 1];
+                        wzory_baza.Add(new_text[i + 1]);
+                        l++;
+                    }
+                }
+            }
+
+            return wzory_baza;//zwraca bazę
+        }
+
+        public List<String[]> testy(List<String> sciezki) //Wyciąga wzory kopia od Matiego ale wyciągnąłem to co potrzebuje i zwraca dodatkowo ścieżkędla każdego wzoru
+        {
+            List<String[]> wzory_testy = new List<string[]> { };//główna lista z bazą wzorów
+
+            foreach (string sciezka in sciezki)
+            {
+                string File_Latex = sciezka;
+                string text = File.ReadAllText(File_Latex);
+
+                text = File.ReadAllText(File_Latex).Replace(" ", "");
+
+                string[] text_split = text.Split(new char[] { });
+
+                string[] new_text = new string[text_split.Length];
+
+                int j = 0;
+                for (int i = 0; i < text_split.Length; i++)
+                {
+                    if (text_split[i] != "")
+                    {
+                        new_text[j] = text_split[i];
+                        j++;
+                    }
+                }
+
+                string[] mat = new string[new_text.Length];//tablica z wyodrębnionymi wzorami
+
+                int l = 0;
+
+                for (int i = 0; i < new_text.Length; i++)
+                {
+                    if (new_text[i] == @"\begin{math}")
+                    {
+                        mat[l] = new_text[i + 1];
+                        wzory_testy.Add(new string[] { new_text[i + 1], sciezka });
+                        l++;
+                    }
+                    else if (new_text[i] == @"\begin{displaymath}")
+                    {
+                        mat[l] = new_text[i + 1];
+                        wzory_testy.Add(new string[] { new_text[i + 1], sciezka });
+                        l++;
+                    }
+                    else if (new_text[i] == @"\begin{equation}")
+                    {
+                        mat[l] = new_text[i + 1];
+                        wzory_testy.Add(new string[] { new_text[i + 1], sciezka });
+                        l++;
+                    }
+                }
+            }
+
+            return wzory_testy;//zwraca bazę
+        }
+
+        public List<String> sciezki(string Path)//z ścieżki pobiera wszystkie pliki tex i daje do listy 
+        {
+            List<String> sciezki = new List<string> { };
+
+            DirectoryInfo di = new DirectoryInfo(Path);
+            foreach (var fi in di.GetFiles("*.tex"))
+            {
+                sciezki.Add(fi.FullName);
+                //Console.WriteLine(fi.FullName);
+            }
+
+            return sciezki;
+        }
+
+        public void Euclidan()// zbiera wszystko żeby bylo ładnie w presenterze
+        {
+            string Path_dir = path_dir + "\\";//zmieniam ścieżki trochę bo byłem "przygotowany" na co inne 
+            List<string> Path = new List<string> { };
+            Path.Add(path);
+
+            preEuclidan(baza(Path), testy(sciezki(Path_dir)));//WYWOLUJĘ POTĘŻNEGO EUCLIMANA ----------------------------> seniora (bo pre)
+        }
+
+        private Boolean Euclidan_algorithm(string wzor_bazowy, string wzor_testowy)//algorytm Euclidan sprawdza plagiat i daje boola
+        {
+            int GCDRecursive(int a, int b)
+            {
+                //Base cases
+                if (a == 0)
+                    return b;
+
+                if (b == 0)
+                    return a;
+
+                if (a > b)
+                    return GCDRecursive(a % b, b);
+                else
+                    return GCDRecursive(a, b % a);
+            }
+
+            int GCD(int a, int b)
+            {
+                while (a != 0 && b != 0)
+                {
+                    if (a > b)
+                        a %= b;
+                    else
+                        b %= a;
+                }
+
+                if (a == 0)
+                    return b;
+                else
+                    return a;
+            }
+
+            return false;
+        }
+
     }
 }

@@ -18,3 +18,12 @@ C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\o
 C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CoreCompileInputs.cache
 C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.exe
 C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.pdb
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe.config
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.pdb
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csprojAssemblyReference.cache
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Form1.resources
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Properties.Resources.resources
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.GenerateResource.cache
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.exe
+C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.pdb
