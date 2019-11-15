@@ -31,6 +31,8 @@ namespace Plagiator3000
                 textBox1.Text += "\r\n";
             }
             textBox1.Text += Algorytm.CosineDistance(array2D);
+            textBox1.Text += "   ";
+            textBox1.Text += Algorytm.EuclideanDistance(array2D);
         }
         private Dictionary<String, int> CountLines(String path)
         {

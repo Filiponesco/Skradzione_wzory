@@ -2,7 +2,6 @@ C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj
 C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Form1.resources
 C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Properties.Resources.resources
 C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.GenerateResource.cache
-C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CoreCompileInputs.cache
 C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe.config
 C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe
 C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.pdb
