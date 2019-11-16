@@ -32,8 +32,8 @@ namespace Plagiator3000
 
         public void Operation()
         {
-            view.file = model.Orig_Latex_Operation();
-            model.Euclidan_algorithm("","");
+            //view.file = model.Orig_Latex_Operation();
+            model.Euclidan_algorithm("jn",new List<string[]> { new string[] { "yyyyy", "xxxxx" } });
             //model.Euclidan();
 
         }

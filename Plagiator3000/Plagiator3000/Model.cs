@@ -158,7 +158,7 @@ namespace Plagiator3000
             return Raport;
         }
 
-        public List<String> baza(List<String> sciezki) //Wyciąga wzory kopia od Matiego ale wyciągnąłem to co potrzebuje
+        public List<String> baza(List<String> sciezki) 
         {
             List<String> wzory_baza = new List<string> { };//główna lista z bazą wzorów
 
@@ -213,7 +213,7 @@ namespace Plagiator3000
             return wzory_baza;//zwraca bazę
         }
 
-        public List<String[]> testy(List<String> sciezki) //Wyciąga wzory kopia od Matiego ale wyciągnąłem to co potrzebuje i zwraca dodatkowo ścieżkędla każdego wzoru
+        public List<String[]> testy(List<String> sciezki) 
         {
             List<String[]> wzory_testy = new List<string[]> { };//główna lista z bazą wzorów
 
@@ -282,7 +282,7 @@ namespace Plagiator3000
             return sciezki;
         }
 
-        public void Euclidan()// zbiera wszystko żeby bylo ładnie w presenterze
+        public void Euclidan()
         {
             string Path_dir = path_dir + "\\";//zmieniam ścieżki trochę bo byłem "przygotowany" na co inne 
             List<string> Path = new List<string> { };
@@ -292,10 +292,8 @@ namespace Plagiator3000
             Report(Path_dir, rep, procent);
         }
 
-        public Boolean Euclidan_algorithm(string wzor_bazowy, string wzor_testowy)//algorytm Euclidan sprawdza plagiat i daje boola
+        public Boolean Euclidan_algorithm(string wzor_bazowy, List<string[]> wzor_testowy)
         {
-            
-
             return false;
         }
 
