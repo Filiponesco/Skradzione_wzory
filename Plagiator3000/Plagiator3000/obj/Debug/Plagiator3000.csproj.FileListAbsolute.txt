@@ -30,3 +30,6 @@ C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Pl
 C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.dll
 C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.xml
 C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CopyComplete
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.dll
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.xml
+C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CopyComplete
