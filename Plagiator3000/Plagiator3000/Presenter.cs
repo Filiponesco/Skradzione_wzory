@@ -34,6 +34,7 @@ namespace Plagiator3000
         {
             //view.file = model.Orig_Latex_Operation();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
             //List<String> baza = new List<string> { "baza1", "baza2", "baza3", "baza4", "baza5", "baza6" };//wzory z bazy
             //List<String[]> testy = new List<string[]> { new string[] { "baza1", "path1" }, new string[] { "testy2", "path2" }, new string[] { "baza3", "path3" }, new string[] { "testy4", "path4" } };
@@ -62,6 +63,8 @@ namespace Plagiator3000
             model.Euclidan();
 
 =======
+=======
+>>>>>>> Stashed changes
             //model.Euclidan();
             model.raport(new int[] { 1,2,3,4,5,6,7,8,9 });
 
