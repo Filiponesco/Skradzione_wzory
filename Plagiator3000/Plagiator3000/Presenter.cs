@@ -33,34 +33,9 @@ namespace Plagiator3000
         public void Operation()
         {
             view.file = model.Orig_Latex_Operation();
-            //model.Euclidan_algorithm("jn",new List<string[]> { new string[] { "yyyyy", "xxxxx" } });
-            //model.Euclidan();
+
+            model.raport(new int[] { 1, 2, 3, 34, 5, 6, 7, 9 });
 
         }
     }
 }
-
-//List<String> baza = new List<string> { "baza1", "baza2", "baza3", "baza4", "baza5", "baza6" };//wzory z bazy
-//List<String[]> testy = new List<string[]> { new string[] { "baza1", "path1" }, new string[] { "testy2", "path2" }, new string[] { "baza3", "path3" }, new string[] { "testy4", "path4" } };
-
-//List<String> sciezki = new List<string> { };
-//sciezki.Add(@"C:\Users\Arkad\Desktop\TEST_ORIG\document.tex");
-//sciezki.Add(@"C:\Users\Arkad\Desktop\TEST_ORIG\document.tex");
-//foreach (string x in model.baza(sciezki))
-//{
-//    Console.WriteLine(x);
-//}
-
-//List<String> sciezki = new List<string> { };
-//sciezki.Add(@"C:\Users\Arkad\Desktop\TEST_ORIG\document.tex");
-//sciezki.Add(@"C:\Users\Arkad\Desktop\TEST_ORIG\document.tex");
-//foreach (string[] x in model.testy(sciezki))
-//{
-//    Console.WriteLine(x[0] + " " + x[1]);
-//}
-//model.sciezki(@"C:\Users\Arkad\Desktop\TEST_ORIG\");
-//foreach (string a in model.sciezki(@"C:\Users\Arkad\Desktop\TEST_ORIG\"))
-//{
-//    Console.WriteLine(a);
-//}
-//model.Euclidan(baza, testy);

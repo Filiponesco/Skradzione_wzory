@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using SautinSoft.Document;
+using System.Diagnostics;
 
 namespace Plagiator3000
 {
@@ -444,6 +445,38 @@ namespace Plagiator3000
         public Boolean Euclidan_algorithm(string wzor_bazowy, List<string[]> wzor_testowy)
         {
             return false;
+        }
+
+        public void raport(int[] tablica_wynikow)
+        {
+            string PATH = path_dir + "\\raport.html";
+            List<string> wzory_oryg = baza(new List<string> { path });
+            List<string> wzory_test = baza(sciezki(path_dir));
+            List<string> sciezki_test = sciezki(path_dir);
+            int dl = tablica_wynikow.Length;
+            //string reszta = "";
+            string reszta2 = "";
+            int inkr = 0;
+
+            //for (int i = 0; i < wzory_test.Count; i++) // reszta to porównanie pojednczych wzorów
+            //{
+            //    for (int j = 0; j < wzory_oryg.Count; j++)
+            //    {
+            //        reszta += "<p>wzór : " + wzory_test[i] + " jest splagiatowany w: " + tablica_wynikow[inkr] + " ptocentach z bazą - wzór: " + wzory_oryg[j] + "</p>\n";
+            //        inkr++;
+            //    }
+            //}
+
+            for (int i = 0; i < sciezki_test.Count; i++) // reszta2 to porównanie plików
+            {
+                reszta2 += "<p>plik : " + sciezki_test[i] + " jest splagiatowany w: " + tablica_wynikow[i] + " ptocentach z plikiem bazowym: " + path + "</p>\n";
+
+            }
+            Console.WriteLine(reszta2);
+
+            var raport = "<!DOCTYPE html>\n<html>\n<body>\n<h1>Raport</h1>\n" + reszta2 + "</body>\n</html>";
+            System.IO.File.WriteAllText(PATH, raport);
+            Process.Start("chrome.exe", PATH);
         }
 
         //public void Report(string sciezka, List<String> raport, double procent)// raport wstępnie 
