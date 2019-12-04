@@ -449,15 +449,15 @@ namespace Plagiator3000
 
         public void raport(int[] tablica_wynikow)
         {
-            string PATH = path_dir + "\\raport.html";
             List<string> wzory_oryg = baza(new List<string> { path });
             List<string> wzory_test = baza(sciezki(path_dir));
             List<string> sciezki_test = sciezki(path_dir);
             int dl = tablica_wynikow.Length;
-            //string reszta = "";
-            string reszta2 = "";
-            int inkr = 0;
+            string body_html = "";
+            string body_tex = "";
 
+            //string reszta = "";
+            //int inkr = 0;
             //for (int i = 0; i < wzory_test.Count; i++) // reszta to porównanie pojednczych wzorów
             //{
             //    for (int j = 0; j < wzory_oryg.Count; j++)
@@ -469,34 +469,83 @@ namespace Plagiator3000
 
             for (int i = 0; i < sciezki_test.Count; i++) // reszta2 to porównanie plików
             {
-                reszta2 += "<p>plik : " + sciezki_test[i] + " jest splagiatowany w: " + tablica_wynikow[i] + " ptocentach z plikiem bazowym: " + path + "</p>\n";
+                body_html += "<p>plik : " + sciezki_test[i] + " jest splagiatowany w: " + tablica_wynikow[i] + " ptocentach z plikiem bazowym: " + path + "</p>\n";
 
             }
-            Console.WriteLine(reszta2);
+            var raportHTML = "<!DOCTYPE html>\n<html>\n<body>\n<h1>Raport</h1>\n" + body_html + "</body>\n</html>";
+            for (int i = 0; i < sciezki_test.Count; i++) 
+            {
+                string SC = sciezki_test[i];
+                string P = path;
+                string SC_new = "", P_new = "";
+                for(int j = 0; j < SC.Length; j++)
+                {
+                    char sc = SC[j];
+                    if (sc == '\\')
+                    {
+                        SC_new += "$\\backslash$";j++;
+                    }
+                    else if (sc == '_')
+                    {
+                        SC_new += "\\_";j++;
+                    }
+                    else
+                    {
+                        SC_new += SC[j];
+                    }
+                }
+                for (int k = 0; k < P.Length; k++)
+                {
+                    char pk = P[k];
+                    if (pk == '\\')
+                    {
+                        P_new += "$\\backslash$";k++;
+                    }
+                    if (pk == '_')
+                    {
+                        P_new += "\\_";k++;
+                    }
+                    else
+                    {
+                        P_new += P[k];
+                    }
+                }
+                body_tex += "plik : " + SC_new + " jest splagiatowany w: " + tablica_wynikow[i] + " ptocentach z plikiem bazowym: " + P_new + "\\\\" + "\n";
 
-            var raport = "<!DOCTYPE html>\n<html>\n<body>\n<h1>Raport</h1>\n" + reszta2 + "</body>\n</html>";
-            System.IO.File.WriteAllText(PATH, raport);
-            Process.Start("chrome.exe", PATH);
+            }
+            var raportTEX = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\begin{document}\n\\title{\\huge\\bfseries Raport porównania plików }\n\\date{\\today}\n\\maketitle\n" + body_tex + "\\end{document}";
+
+            string PATH = path_dir + "\\raport";
+            string PATHhtml = PATH + "\\raport.html";
+            string PATHtex = PATH + "\\raport.tex";
+            string PATHbat = PATH + "\\batch.bat";
+            bool exists = System.IO.Directory.Exists(PATH);
+            if (exists)
+            {
+                Console.WriteLine("Stworzono raport do istniejącej ścieżki raport");
+                System.IO.File.WriteAllText(PATHtex, raportTEX);
+                System.IO.File.WriteAllText(PATHhtml, raportHTML);
+                Process.Start("chrome.exe", PATHtex);
+                Process.Start("chrome.exe", PATHhtml);
+            }
+            else if (!exists)
+            {
+                Console.WriteLine("Stworzono raport do nie istniejącej ścieżki raport");
+                System.IO.Directory.CreateDirectory(PATH);
+                System.IO.File.WriteAllText(PATHtex, raportTEX);
+                System.IO.File.WriteAllText(PATHhtml, raportHTML);
+                Process.Start("chrome.exe", PATHtex);
+                Process.Start("chrome.exe", PATHhtml);
+            }
+
+            //Process p1 = new Process();
+            //string batbatch = "rem %1 represents the file name with no extension.\npdflatex - shell - escape % 1";
+            //System.IO.File.WriteAllText(PATHbat, batbatch);
+            //p1.StartInfo.FileName = PATHbat;
+            //p1.StartInfo.Arguments = PATHtex;
+            //p1.StartInfo.UseShellExecute = false;
+            //p1.Start();
+            //p1.WaitForExit();
         }
-
-        //public void Report(string sciezka, List<String> raport, double procent)// raport wstępnie 
-        //{
-        //    //(https://www.sautinsoft.com/products/document/examples/create-html-document-net-csharp-vb.php)
-        //    DocumentCore dc = new DocumentCore();
-        //    dc.Content.End.Insert("Raport \n \n", new CharacterFormat() { FontName = "Verdana", Size = 65.5f, FontColor = Color.Black });
-        //    dc.Content.End.Insert("Raport dotyczący folderu : " + sciezka + " \n", new CharacterFormat() { FontName = "Verdana", Size = 12f, FontColor = Color.Black });
-        //    dc.Content.End.Insert("Wykryto " + String.Format("{0:F2}", procent) + " % splagiatowanych wzorów \n \n \n", new CharacterFormat() { FontName = "Verdana", Size = 12f, FontColor = Color.Black });
-        //    dc.Content.End.Insert("Szczegółowe informacje :  \n", new CharacterFormat() { FontName = "Verdana", Size = 10, FontColor = Color.Black });
-        //    foreach (string rap in raport)
-        //    {
-        //        dc.Content.End.Insert(rap + " \n", new CharacterFormat() { FontName = "Verdana", Size = 9, FontColor = Color.Black });
-        //    }
-
-        //    dc.Save(@"C:\Users\Arkad\Desktop\TEST_ORIG\Raport.html");
-
-        //    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(@"C:\Users\Arkad\Desktop\TEST_ORIG\Raport.html") { UseShellExecute = true });
-        //    Console.WriteLine("Raport");
-        //}
-
     }
 }
