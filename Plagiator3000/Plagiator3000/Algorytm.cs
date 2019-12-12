@@ -8,40 +8,6 @@ namespace Plagiator3000
 {
     class Algorytm
     {
-        public static double[] CosineDistance(int[,] array2D)
-        {
-            double licznik;
-            double mianownik;
-            double mianOrig = 0; //pierwiastek(ai ^2)
-            double mianCopy; //pierwiastek(bi ^2)
-            // Length cosDistance jest rowna lb kopii
-            double[] cosDistance = new double[array2D.GetUpperBound(0)];
-
-            //petla ktora wykona sie jeden raz
-            for (int y = 0; y <= array2D.GetUpperBound(1); y++)
-            {
-                mianOrig += Math.Pow(array2D[0, y], 2);
-            }
-            mianOrig = Math.Sqrt(mianOrig);
-            for (int x = 1; x <= array2D.GetUpperBound(0); x++)
-            {
-                mianCopy = 0;
-                licznik = 0;
-                for (int y = 0; y <= array2D.GetUpperBound(1); y++)
-                {
-                    licznik += array2D[0, y] * array2D[x, y];
-                }
-                for (int y = 0; y <= array2D.GetUpperBound(1); y++)
-                {
-                    mianCopy += Math.Pow(array2D[x, y], 2);
-                }
-                mianCopy = Math.Sqrt(mianCopy);
-                mianownik = mianOrig * mianCopy;
-                double cosSimilarity = licznik / mianownik;
-                cosDistance[x - 1] = 1 - cosSimilarity;
-            }
-            return cosDistance;
-        }
         public static double[] EuclideanDistance(int[,] array2D)
         {
             double[] EuclDist = new double[array2D.GetUpperBound(0) + 1];
@@ -63,62 +29,113 @@ namespace Plagiator3000
             }
             return EuclDist;
         }
-        public static int[,] ToArray(Dictionary<String, int> orig, List<Dictionary<String, int>> copyFiles)
+        private static char[] PatternToLetters(string pattern)
         {
-            List<Dictionary<String, int>> sortedCopies = new List<Dictionary<string, int>>();
-            int[,] array2D = new int[1 + copyFiles.Count, orig.Count]; //lb dokumentow x lb slow w oryginal
-            var sortedOrig = SortDict(orig);
-            for (int y = 0; y <= array2D.GetUpperBound(1); y++)
+            char[] letters = new char[pattern.Length];
+            for(int i = 0; i < pattern.Length; i++)
             {
-                array2D[0, y] = sortedOrig.ElementAt(y).Value;
+                letters[i] = pattern[i];
             }
-            for (int i = 0; i < copyFiles.Count; i++)
-            {
-                var KeysToDelete = new List<string>();
-                foreach (var dictCopy in copyFiles[i])
-                {
-                    //jesli kopia zawiera klucz ktory nie nalezy do oryginalu to usun go
-                    if (!orig.ContainsKey(dictCopy.Key))
-                    {
-                        KeysToDelete.Add(dictCopy.Key);
-                    }
-                }
-                foreach (var k in KeysToDelete)
-                {
-                    copyFiles[i].Remove(k);
-                }
-                //klucze ktore nie wystepuja w kopiach musza byc dodane z wartoscia 0
-                foreach (var dictOrig in orig)
-                {
-                    if (!copyFiles[i].ContainsKey(dictOrig.Key))
-                    {
-                        copyFiles[i].Add(dictOrig.Key, 0);
-                    }
-                }
-                //sortowanie kopii alfabetycznie
-                var sortedCopy = SortDict(copyFiles[i]);
-                sortedCopies.Add(sortedCopy);
-            }
-            //teraz lista sortedCopies posaida tylko pliki, ktore sie powtarzaj w oryginale, posortowane tak samo jak oryginal
-            for (int x = 1; x <= array2D.GetUpperBound(0); x++) //jedynka juz zajeta przez oryginal
-            {
-                for (int y = 0; y <= array2D.GetUpperBound(1); y++)
-                {
-                    array2D[x, y] = sortedCopies[x - 1].ElementAt(y).Value;
-                }
-            }
-            return array2D;
+            return letters;
         }
-        private static Dictionary<String, int> SortDict(Dictionary<String, int> dict)
+        private static Dictionary<char, int> CountFrequentlyOfLetters(char[] letters)
         {
-            var keys = dict.Keys.ToList();
-            keys.Sort();
-            var sortedDict = new Dictionary<String, int>();
-            foreach (var key in keys)
+            var freqLet = new Dictionary<char, int>();
+            Array.Sort(letters);
+            var actualChar = letters[0];
+            var sum = 0;
+            foreach(var c in letters)
             {
-                sortedDict.Add(key, dict[key]);
+                if(c == actualChar)
+                {
+                    sum++;
+                }
+                else
+                {
+                    freqLet.Add(c, sum);
+                    actualChar = c;
+                    sum = 1;
+                }
             }
-            return sortedDict;
+            return freqLet;
+        }
+        private static Dictionary<char, int> SortDictChar(Dictionary<char, int> dict)
+        {
+            var chars = dict.Keys.ToList();
+            chars.Sort();
+            var sortedDictChar = new Dictionary<char, int>();
+            foreach (var c in chars)
+            {
+                sortedDictChar.Add(c, dict[c]);
+            }
+            return sortedDictChar;
+        }
+        private static Dictionary<char, int> DeleteOtherCharInCopy(
+            Dictionary<char, int> frqLtrsOrig, Dictionary<char, int> frqLtrsCopy)
+        {
+            var charToDelete = new List<char>();
+            foreach (var c in frqLtrsCopy)
+            {
+                //jesli kopia zawiera litere ktora nie nalezy do oryginalu to usun ja
+                if (!frqLtrsOrig.ContainsKey(c.Key))
+                {
+                    charToDelete.Add(c.Key);
+                }
+            }
+            foreach (var c in charToDelete)
+            {
+                frqLtrsCopy.Remove(c);
+            }
+            //znaki ktore nie wystepuja w kopii musza byc dodane z wartoscia 0 jako, że nie wystąpiły
+            foreach (var c in frqLtrsOrig)
+            {
+                if (!frqLtrsCopy.ContainsKey(c.Key))
+                {
+                    frqLtrsCopy.Add(c.Key, 0);
+                }
+            }
+            //sortowanie kopii alfabetycznie
+            SortDictChar(frqLtrsOrig);
+            return frqLtrsCopy;
+        }
+        public static double CosineDistance(string wzorOrig, string wzorCopy)
+        {
+            double licznik = 0;
+            double mianownik;
+            double mianOrig = 0; //pierwiastek(ai ^2)
+            double mianCopy = 0; //pierwiastek(bi ^2)
+            double cosDistance;
+
+            char[] lettersOrig = PatternToLetters(wzorOrig);
+            char[] lettersCopy = PatternToLetters(wzorCopy);
+
+            Dictionary<char, int> frqLtrsOrig = CountFrequentlyOfLetters(lettersOrig);
+            Dictionary<char, int> frqLtrsCopy = CountFrequentlyOfLetters(lettersCopy);
+
+            frqLtrsCopy = DeleteOtherCharInCopy(frqLtrsOrig, frqLtrsCopy);
+
+            foreach (var c in frqLtrsOrig)
+            {
+                mianOrig += Math.Pow(c.Value, 2);
+            }
+            mianOrig = Math.Sqrt(mianOrig);
+
+            foreach (var c in frqLtrsCopy)
+            {
+                mianCopy += Math.Pow(c.Value, 2);
+            }
+            mianCopy = Math.Sqrt(mianCopy);
+
+            mianownik = mianOrig * mianCopy;
+
+            for(int i = 0; i < frqLtrsOrig.Count; i++)
+            {
+                licznik += frqLtrsOrig.ElementAt(i).Value * frqLtrsCopy.ElementAt(i).Value;
+            }
+
+            double cosSimilarity = licznik / mianownik;
+            cosDistance = 1 - cosSimilarity;
+            return cosDistance;
         }
     }
 }
