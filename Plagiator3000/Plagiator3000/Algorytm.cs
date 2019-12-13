@@ -32,7 +32,7 @@ namespace Plagiator3000
         private static char[] PatternToLetters(string pattern)
         {
             char[] letters = new char[pattern.Length];
-            for(int i = 0; i < pattern.Length; i++)
+            for (int i = 0; i < pattern.Length; i++)
             {
                 letters[i] = pattern[i];
             }
@@ -44,19 +44,20 @@ namespace Plagiator3000
             Array.Sort(letters);
             var actualChar = letters[0];
             var sum = 0;
-            foreach(var c in letters)
+            foreach (var c in letters)
             {
-                if(c == actualChar)
+                if (c == actualChar)
                 {
                     sum++;
                 }
                 else
                 {
-                    freqLet.Add(c, sum);
+                    freqLet.Add(actualChar, sum);
                     actualChar = c;
                     sum = 1;
                 }
             }
+            freqLet.Add(actualChar, sum);
             return freqLet;
         }
         private static Dictionary<char, int> SortDictChar(Dictionary<char, int> dict)
@@ -128,7 +129,7 @@ namespace Plagiator3000
 
             mianownik = mianOrig * mianCopy;
 
-            for(int i = 0; i < frqLtrsOrig.Count; i++)
+            for (int i = 0; i < frqLtrsOrig.Count; i++)
             {
                 licznik += frqLtrsOrig.ElementAt(i).Value * frqLtrsCopy.ElementAt(i).Value;
             }
