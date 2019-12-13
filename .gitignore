@@ -1,5 +1,5 @@
 Skip to content
-Search or jump to…
+Search or jump toï¿½
 
 Pull requests
 Issues
@@ -11,7 +11,7 @@ Explore
 92.7k47.8kgithub/gitignore
  Code Pull requests 123 Actions Projects 0 Security Insights
 gitignore/VisualStudio.gitignore
-@Chiramisu Chiramisu JustCode has been discontinued as the features it provided are now in…
+@Chiramisu Chiramisu JustCode has been discontinued as the features it provided are now inï¿½
 cedf2d1 on 7 Nov
 @shiftkey@arcresu@aroben@bbodenmiller@HassanHashemi@haacked@niik@AArnott@Zenuka@sayedihashimi@saschanaz@LunicLynx@OsirisTerje@sfhardman@jamiehumphries@richorama@RehanSaeed@marcrocny@matma@JFMG@jamesqo@elerch@cbadke@CoskunSunali@bdukes@anurse
 350 lines (282 sloc)  5.86 KB
@@ -366,7 +366,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-© 2019 GitHub, Inc.
+ï¿½ 2019 GitHub, Inc.
 Terms
 Privacy
 Security
@@ -379,3 +379,7 @@ Training
 Blog
 About
 
+Plagiator3000/.vs/Plagiator3000/v16/Server/sqlite3/storage.ide
+Plagiator3000/.vs/Plagiator3000/v16/.suo
+Plagiator3000/.vs/Plagiator3000/v16/Server/sqlite3/storage.ide
+Plagiator3000/Plagiator3000/obj/Debug/Plagiator3000.csprojAssemblyReference.cache

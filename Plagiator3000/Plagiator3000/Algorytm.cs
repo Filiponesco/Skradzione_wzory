@@ -8,27 +8,6 @@ namespace Plagiator3000
 {
     class Algorytm
     {
-        public static double[] EuclideanDistance(int[,] array2D)
-        {
-            double[] EuclDist = new double[array2D.GetUpperBound(0) + 1];
-            //roznica czestosci wystepowan posczegolnych liń dla oryg i 1 kopii
-            int[] roznica = new int[array2D.GetUpperBound(1) + 1];
-            int sumaRoznic;
-            double result;
-            //od 1 bo dokument 0 to oryginal do ktorego wszystko bedzie porownywane
-            for (int x = 1; x <= array2D.GetUpperBound(0); x++)
-            {
-                sumaRoznic = 0;
-                for (int y = 0; y <= array2D.GetUpperBound(1); y++)
-                {
-                    roznica[y] = array2D[0, y] - array2D[x, y];
-                    roznica[y] *= roznica[y];
-                    sumaRoznic += roznica[y];
-                }
-                EuclDist[x - 1] = Math.Sqrt(sumaRoznic);
-            }
-            return EuclDist;
-        }
         private static char[] PatternToLetters(string pattern)
         {
             char[] letters = new char[pattern.Length];
@@ -137,6 +116,29 @@ namespace Plagiator3000
             double cosSimilarity = licznik / mianownik;
             cosDistance = 1 - cosSimilarity;
             return cosDistance;
+        }
+        public static double EuclideanDistance(string wzorOrig, string wzorCopy)
+        {
+            char[] lettersOrig = PatternToLetters(wzorOrig);
+            char[] lettersCopy = PatternToLetters(wzorCopy);
+
+            Dictionary<char, int> frqLtrsOrig = CountFrequentlyOfLetters(lettersOrig);
+            Dictionary<char, int> frqLtrsCopy = CountFrequentlyOfLetters(lettersCopy);
+
+            frqLtrsCopy = DeleteOtherCharInCopy(frqLtrsOrig, frqLtrsCopy);
+
+            double euclideanDistance;
+            double roznica;
+            double suma = 0;
+
+            for (int i = 0; i < frqLtrsOrig.Count; i++)
+            {
+                roznica = frqLtrsOrig.ElementAt(i).Value - frqLtrsCopy.ElementAt(i).Value;
+                roznica *= roznica;
+                suma += roznica;
+            }
+            euclideanDistance = Math.Sqrt(suma);
+            return euclideanDistance;
         }
     }
 }
