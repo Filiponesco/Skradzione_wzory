@@ -117,5 +117,28 @@ namespace Plagiator3000
             cosDistance = 1 - cosSimilarity;
             return cosDistance;
         }
+        public static double EuclideanDistance(string wzorOrig, string wzorCopy)
+        {
+            char[] lettersOrig = PatternToLetters(wzorOrig);
+            char[] lettersCopy = PatternToLetters(wzorCopy);
+
+            Dictionary<char, int> frqLtrsOrig = CountFrequentlyOfLetters(lettersOrig);
+            Dictionary<char, int> frqLtrsCopy = CountFrequentlyOfLetters(lettersCopy);
+
+            frqLtrsCopy = DeleteOtherCharInCopy(frqLtrsOrig, frqLtrsCopy);
+
+            double euclideanDistance;
+            double roznica;
+            double suma = 0;
+
+            for(int i = 0; i < frqLtrsOrig.Count; i++)
+            {
+                roznica = frqLtrsOrig.ElementAt(i).Value - frqLtrsCopy.ElementAt(i).Value;
+                roznica *= roznica;
+                suma += roznica;
+            }
+            euclideanDistance = Math.Sqrt(suma);
+            return euclideanDistance;
+        }
     }
 }
