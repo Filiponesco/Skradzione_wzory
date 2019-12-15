@@ -58,19 +58,102 @@ namespace Plagiator3000
         public string Orig_Latex_Operation() //Operacje na oryginalnym latexie
         {
             string File_Latex = path;
-            string text = File.ReadAllText(File_Latex);
+            string text_load = File.ReadAllText(File_Latex);
 
-            Console.WriteLine("Tekst: " + text);
+            string[] text_opt = new string[text_load.Length + 20]; //do poprawy wczytywan wczytywan
 
-            text = File.ReadAllText(File_Latex).Replace(" ", "");
+            text_load = File.ReadAllText(File_Latex).Replace(" ", "");
+
+            Console.WriteLine("Tekst: " + text_load);
+
+            int k = 0, n = 0;
+            for (int i = 0; i < text_load.Length; i++)
+            {
+                if ( (text_load[i].ToString() == @"\".ToString() ) && (text_load[i + 1].ToString() == @"e".ToString()) && (text_load[i + 5].ToString() == @"m".ToString()) && (text_load[i +9].ToString() == @"}".ToString()) )
+                {
+                    for(int m = 0; m < 11; m++)
+                    {
+                        if (n == 10)
+                        {
+                            text_opt[k] = "\n".ToString();
+                            k++;
+                            text_opt[k] = text_load[i].ToString();
+                            i++;
+                            k++;
+                        }
+                        else
+                        {
+                            text_opt[k] = text_load[i].ToString();
+                            k++;
+                            i++;
+                            n++;
+                        }
+                    }
+                    n = 0;
+                }
+                else if((text_load[i].ToString() == @"\".ToString()) && (text_load[i + 1].ToString() == @"e".ToString()) && (text_load[i + 5].ToString() == @"d".ToString()) && (text_load[i + 9].ToString() == @"l".ToString()) && (text_load[i + 16].ToString() == @"}".ToString()))
+                {
+                    for (int m = 0; m < 18; m++)
+                    {
+                        if (n == 17)
+                        {
+                            text_opt[k] = "\n".ToString();
+                            k++;
+                            text_opt[k] = text_load[i].ToString();
+                            i++;
+                            k++;
+                        }
+                        else
+                        {
+                            text_opt[k] = text_load[i].ToString();
+                            k++;
+                            i++;
+                            n++;
+                        }
+                    }
+                    n = 0;
+                }
+                else if ((text_load[i].ToString() == @"\".ToString()) && (text_load[i + 1].ToString() == @"e".ToString()) && (text_load[i + 5].ToString() == @"e".ToString()) && (text_load[i + 9].ToString() == @"t".ToString()) && (text_load[i + 13].ToString() == @"}".ToString()))
+                {
+                    for (int m = 0; m < 15; m++)
+                    {
+                        if (n == 14)
+                        {
+                            text_opt[k] = "\n".ToString();
+                            k++;
+                            text_opt[k] = text_load[i].ToString();
+                            i++;
+                            k++;
+                        }
+                        else
+                        {
+                            text_opt[k] = text_load[i].ToString();
+                            k++;
+                            i++;
+                            n++;
+                        }
+                    }
+                    n = 0;
+                }
+                else
+                {
+                    text_opt[k] = text_load[i].ToString();
+                    k++;
+                }
+            }
+            k = 0;
+
+            string text = "";
+
+            text = String.Join("", text_opt);
 
             string[] text_split = text.Split(new char[] { });
-
+            
 
             string[] new_text = new string[text_split.Length];
 
             int j = 0;
-            for (int i = 0; i < text_split.Length; i++)
+            for (int i = 0; i < text_split.Length; i++) //zapisuje litery jako linie tekstu
             {
                 if (text_split[i] != "")
                 {
@@ -89,6 +172,8 @@ namespace Plagiator3000
             int lpom = 0; //licznik pomocniczy
             int lwzor = 0; //licznik pomocniczy
             int count = 0; //licznik
+
+
             for (int i = 0; i < new_text.Length; i++) // for znajdujacy wzory 
             {
                 try
@@ -273,6 +358,18 @@ namespace Plagiator3000
 
         private void Same_Or_Not() //Porownanie plikow
         {
+
+
+
+
+
+
+
+
+
+
+
+
 
         }
         public List<String> preEuclidan(List<String> baza, List<String[]> testy)//zbiera wszystko i daje do Euclidan
