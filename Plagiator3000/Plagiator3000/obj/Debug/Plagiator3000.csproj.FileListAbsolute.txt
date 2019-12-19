@@ -33,3 +33,15 @@ C:\Users\Arkad\Desktop\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Pl
 C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.dll
 C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.xml
 C:\Users\matik\Desktop\IO Projekt\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CopyComplete
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csprojAssemblyReference.cache
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Form1.resources
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.Properties.Resources.resources
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.GenerateResource.cache
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.exe
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.pdb
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe.config
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.exe
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\Plagiator3000.pdb
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.dll
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\bin\Debug\SautinSoft.Document.xml
+C:\Users\ArkadiuszDatka\Documents\Visual Studio 2019\Skradzione_wzory\Plagiator3000\Plagiator3000\obj\Debug\Plagiator3000.csproj.CopyComplete
