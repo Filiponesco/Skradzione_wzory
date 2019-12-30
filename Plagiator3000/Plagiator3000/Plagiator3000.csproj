@@ -58,10 +58,13 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IView.cs" />
+    <Compile Include="Wzory\MATL.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Presenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wzory\Optymalizacja.cs" />
+    <Compile Include="Wzory\WZORY.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
