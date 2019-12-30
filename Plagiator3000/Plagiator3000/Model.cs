@@ -12,8 +12,8 @@ namespace Plagiator3000
 {
     class Model
     {
-        string path = "d:\\";
-        string path_dir = "d:\\";
+        string path;
+        string path_dir;
         public string Load_Orig_Latex() //wczytywanie pliku z oryginalnym latexem
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -29,7 +29,7 @@ namespace Plagiator3000
             return path;
         }
 
-        public string Load_Plagiat_Direc() //Wczytanie folderu z plikami
+        public string Load_Plagiat_Direc() //Wczytanie folderu z plikami i zwrot sciezki do folderu
         {
             using (FolderBrowserDialog win = new FolderBrowserDialog())
             {
@@ -41,35 +41,34 @@ namespace Plagiator3000
             return path_dir;
         }
 
-        public void Load_Plagiat_Files() //Wczytuje pliki z folderu
+        public void Load_Plagiat_Files() //Wyswietla sciezke oraz wzory z danego pliku
         {
+            Console.WriteLine("-----------------------------------------------PLIKI Z FOLDERU-------------------------------------");
             var files = Directory.EnumerateFiles(path_dir, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".tex"));
 
             foreach (string fileName in files)
             {
+                Console.WriteLine("-------------------------------------SCIEZKA DO PLIKU:---------------------------------");
                 Console.WriteLine(fileName);
                 string File_Latex = fileName;
                 string text = File.ReadAllText(File_Latex);
+                Console.WriteLine("-------------------------------------WZORY Z PLIKU---------------------------------");
                 Console.WriteLine(text);
+                WZORY.Orig_Latex_Operation_Wzory(File_Latex);
+                Console.WriteLine("-------------------------------------KONIEC PLIKU---------------------------------");
             }
         }
 
-        public void Orig_Latex_Operation_Mat() //Zwracam tablice gdzie kazdy element to linia z czescia wzoru
+        public void Orig_Latex_Operation_Mat() //Zwracam tablice gdzie kazdy element to linia z czescia wzoru dla oryginalu
         {
             Console.WriteLine("-------------------------------------MAT---------------------------------");
             MATL.Orig_Latex_Operation_Mat(path);   
-           
         }
 
-        public void Orig_Latex_Operation_Wzory() //Zwracam tablice gdzie kazdy element to wzor
+        public void Orig_Latex_Operation_Wzory() //Zwracam tablice gdzie kazdy element to wzor dla oryginalu
         {
             Console.WriteLine("-------------------------------------WZORY---------------------------------");
             WZORY.Orig_Latex_Operation_Wzory(path);
-        }
-
-        private void Same_Or_Not() //Porownanie plikow
-        {
-
         }
 
         public List<String> baza(List<String> sciezki) 

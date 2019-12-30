@@ -38,7 +38,7 @@ namespace Plagiator3000
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Add_File.Invoke();
+            Add_File.Invoke();  
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -48,7 +48,22 @@ namespace Plagiator3000
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Start_Prog.Invoke();
+            if (label5.Text == "" && label7.Text == "")
+            {
+                MessageBox.Show("Musisz wybrac oryginalny plik oraz folder z plikami!");
+            }
+            else if (label5.Text == "")
+            {
+                MessageBox.Show("Musisz wybrac oryginalny plik!");
+            }
+            else if (label7.Text == "")
+            {
+                MessageBox.Show("Musisz wybrac folder z plikami!");
+            }
+            else
+            {
+                Start_Prog.Invoke();
+            }
         }
     }
 }
