@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Plagiator3000
 {
     public partial class Form1 : Form, IView
@@ -32,6 +33,14 @@ namespace Plagiator3000
             }
         }
 
+        public string alg
+        {
+            get
+            {
+                return comboBox1.Text;
+            }
+        }
+
         public event Action Add_File;
         public event Action Add_Direc;
         public event Action Start_Prog;
@@ -50,15 +59,19 @@ namespace Plagiator3000
         {
             if (label5.Text == "" && label7.Text == "")
             {
-                MessageBox.Show("Musisz wybrac oryginalny plik oraz folder z plikami!");
+                MessageBox.Show("Musisz uzupełnić wszystkie pola!");
             }
             else if (label5.Text == "")
             {
-                MessageBox.Show("Musisz wybrac oryginalny plik!");
+                MessageBox.Show("Musisz jeszcze wybrac oryginalny plik!");
             }
             else if (label7.Text == "")
             {
-                MessageBox.Show("Musisz wybrac folder z plikami!");
+                MessageBox.Show("Musisz jeszcze wybrac folder z plikami!");
+            }
+            else if(comboBox1.Text == "")
+            {
+                MessageBox.Show("Musisz jeszcze wybrać algorytm!");
             }
             else
             {

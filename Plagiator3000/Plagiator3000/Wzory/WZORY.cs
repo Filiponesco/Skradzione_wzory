@@ -220,11 +220,13 @@ namespace Plagiator3000
             catch { MessageBox.Show("Dokument jest niepoprawny!\nNie znaleziono zamkniecia wyrazenia matematycznego lub niepoprawnie go uzyto!\nReszta operacji w programie moze zawierać błędy!"); }
 
             Console.WriteLine("\nWzory matematyczne: "); //wyswietlenie tablicy gdzie kazdy element to wzor (czasami slabe wyswietlanie ale generalnie zawsze to mozna obrobic)
+            string[] wzory_dobre = new string[lwzor];
             for (int i = 0; i < lwzor; i++)
             {
                 Console.WriteLine(i + " el: " + wzory[i]);
+                wzory_dobre[i] = wzory[i];
             }
-            return wzory;
+            return wzory_dobre;
         }
     }
 }

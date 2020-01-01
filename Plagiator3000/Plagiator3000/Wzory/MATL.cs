@@ -167,11 +167,13 @@ namespace Plagiator3000
             catch { MessageBox.Show("Dokument jest niepoprawny!\nNie znaleziono zamkniecia wyrazenia matematycznego lub niepoprawnie go uzyto!\nReszta operacji w programie moze zawierać błędy!"); }
 
             Console.WriteLine("Wyrazenia matematyczne: "); //wyswietlenie tablicy gdzie kazdy element to linia wzoru
+            string[] mat_dobre = new string[l];
             for (int i = 0; i < l; i++)
             {
                 Console.WriteLine(i + " el: " + mat[i]);
+                mat_dobre[i] = mat[i];
             }
-            return mat;
+            return mat_dobre;
         }
     }
 }

@@ -32,12 +32,10 @@ namespace Plagiator3000
 
         public void Operation()
         {
-            model.Orig_Latex_Operation_Mat();
-            model.Orig_Latex_Operation_Wzory();
-            model.Load_Plagiat_Files();
-
-            model.raport(new int[] { 1, 2, 3, 3, 4, 5, 6, 7, 9 }, new string[,] { { "sciezka1", "w1","w1","p1" },{"sciezka2","w2","w2","p2"},{"sciezka3","w3","w3","p3" },{"sciezka4","w4","w4","p4" },{ "sciezka5","w5","w5","p5"} });
+            model.SameOrNot(view.alg);
+           // model.raport(new int[] { 1, 2, 3, 3, 4, 5, 6, 7, 9 }, new string[,] { { "sciezka1", "w1","w1","p1" },{"sciezka2","w2","w2","p2"},{"sciezka3","w3","w3","p3" },{"sciezka4","w4","w4","p4" },{ "sciezka5","w5","w5","p5"} });
 
         }
+
     }
 }

@@ -41,34 +41,47 @@ namespace Plagiator3000
             return path_dir;
         }
 
-        public void Load_Plagiat_Files() //Wyswietla sciezke oraz wzory z danego pliku
+        public void SameOrNot(string alg)
         {
-            Console.WriteLine("-----------------------------------------------PLIKI Z FOLDERU-------------------------------------");
             var files = Directory.EnumerateFiles(path_dir, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".tex"));
-
+            Console.WriteLine("-------------------------------------WZORY Z ORYGINALU:---------------------------------");
+            string[] tab_oryg = WZORY.Orig_Latex_Operation_Wzory(path); //tablica z wzorami z oryginalu
+            string wzor_oryg, wzor_plag; //zmienne gdzie sa przechowywane kolejno wzor oryginalu i wzor z plagiatu
+            double sameornot; //zmienna ktora przechowuje podobienstwo
+            Console.WriteLine("-------------------------------------BAZA PLIKOW:---------------------------------");
             foreach (string fileName in files)
             {
-                Console.WriteLine("-------------------------------------SCIEZKA DO PLIKU:---------------------------------");
+                Console.WriteLine("SCIEZKA DO PLIKU: ");
                 Console.WriteLine(fileName);
                 string File_Latex = fileName;
-                string text = File.ReadAllText(File_Latex);
-                Console.WriteLine("-------------------------------------WZORY Z PLIKU---------------------------------");
-                Console.WriteLine(text);
-                WZORY.Orig_Latex_Operation_Wzory(File_Latex);
-                Console.WriteLine("-------------------------------------KONIEC PLIKU---------------------------------");
+                Console.WriteLine("\nWZORY Z PLIKU: ");
+
+                string[] tab_plag = WZORY.Orig_Latex_Operation_Wzory(File_Latex); //tablica ktora przechowuje wzory z plagiatu. Po jednym przejsciu petli foreach wczutuje wzory z nastepnego pliku           
+
+                for (int i = 0; i < tab_oryg.Length; i++) //GLOWNA PETLA PROGRAMU. POROWNUJE WSZYSTKIE WZORY WYBRANYM ALGORYTMEM
+                {
+                    wzor_oryg = tab_oryg[i];
+
+                    for (int j = 0; j < tab_plag.Length; j++)
+                    {
+                        wzor_plag = tab_plag[j];
+                        Console.WriteLine("\nWzor oryginalny: " + wzor_oryg);
+                        Console.WriteLine("Wzor plagiatu: " + wzor_plag);
+                        if (alg == "CosineDistance")
+                        { 
+                            sameornot = Algorytm.CosineDistance(wzor_oryg, wzor_plag);
+                        }
+                        else 
+                        {
+                            sameornot = Algorytm.EuclideanDistance(wzor_oryg, wzor_plag);
+                        }
+                        
+                        Console.WriteLine("SAME OR NOT------------------------------------------ ???");
+                        Console.WriteLine(sameornot);
+                    }
+                }
+                Console.WriteLine("-------------------------------------KONIEC PLIKU------------------------------------");
             }
-        }
-
-        public void Orig_Latex_Operation_Mat() //Zwracam tablice gdzie kazdy element to linia z czescia wzoru dla oryginalu
-        {
-            Console.WriteLine("-------------------------------------MAT---------------------------------");
-            MATL.Orig_Latex_Operation_Mat(path);   
-        }
-
-        public void Orig_Latex_Operation_Wzory() //Zwracam tablice gdzie kazdy element to wzor dla oryginalu
-        {
-            Console.WriteLine("-------------------------------------WZORY---------------------------------");
-            WZORY.Orig_Latex_Operation_Wzory(path);
         }
 
         public List<String> baza(List<String> sciezki) 
