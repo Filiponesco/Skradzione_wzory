@@ -44,8 +44,11 @@ namespace Plagiator3000
         public void SameOrNot(string alg)
         {
             var files = Directory.EnumerateFiles(path_dir, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".tex"));
+            string text = File.ReadAllText(path);
+            Console.WriteLine(text);
             Console.WriteLine("-------------------------------------WZORY Z ORYGINALU:---------------------------------");
             string[] tab_oryg = WZORY.Orig_Latex_Operation_Wzory(path); //tablica z wzorami z oryginalu
+            
             string wzor_oryg, wzor_plag; //zmienne gdzie sa przechowywane kolejno wzor oryginalu i wzor z plagiatu
             double sameornot; //zmienna ktora przechowuje podobienstwo
             Console.WriteLine("-------------------------------------BAZA PLIKOW:---------------------------------");
@@ -54,6 +57,7 @@ namespace Plagiator3000
                 Console.WriteLine("SCIEZKA DO PLIKU: ");
                 Console.WriteLine(fileName);
                 string File_Latex = fileName;
+                
                 Console.WriteLine("\nWZORY Z PLIKU: ");
 
                 string[] tab_plag = WZORY.Orig_Latex_Operation_Wzory(File_Latex); //tablica ktora przechowuje wzory z plagiatu. Po jednym przejsciu petli foreach wczutuje wzory z nastepnego pliku           

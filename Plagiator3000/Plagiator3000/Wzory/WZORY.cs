@@ -49,7 +49,7 @@ namespace Plagiator3000
             int lpom = 0; //licznik pomocniczy
             int lwzor = 0; //licznik pomocniczy
             int count = 0; //licznik
-
+            bool spr = false;
 
             for (int i = 0; i < new_text.Length; i++) // for znajdujacy wzory 
             {
@@ -182,11 +182,24 @@ namespace Plagiator3000
                     else if ((Equals(text[i].ToString(), @"\".ToString())) && (Equals(text[i + 1].ToString(), @"(".ToString())))
                     {
                         i += 2;
-                        while ((text[i].ToString() != @"\".ToString()) && (text[i + 1].ToString() != @")".ToString()))
+                        while (!spr)
                         {
-                            znaki[j] = text[i].ToString();
-                            j++;
-                            i++;
+                            if (text[i].ToString() == @"\")
+                            {
+                                if (text[i + 1].ToString() == @")".ToString())
+                                {
+                                    spr = true;
+                                    i++;
+                                }
+                            }
+                            if (spr)
+                            { }
+                            else
+                            {
+                                znaki[j] = text[i].ToString();
+                                j++;
+                                i++;
+                            }
                         }
                         i++;
                         j = 0;
@@ -196,15 +209,30 @@ namespace Plagiator3000
                         wzory[lwzor] = mat[l];
                         lwzor++;
                         l++;
+                        spr = false;
                     }
                     else if ((Equals(text[i].ToString(), @"\".ToString())) && (Equals(text[i + 1].ToString(), @"[".ToString())))
                     {
                         i += 2;
-                        while ((text[i].ToString() != @"\".ToString()) && (text[i + 1].ToString() != @"]".ToString()))
+                        
+                        while (!spr)
                         {
-                            znaki[j] = text[i].ToString();
-                            j++;
-                            i++;
+                            if (text[i].ToString() == @"\")
+                            {
+                                if (text[i+1].ToString() == @"]".ToString())
+                                {
+                                    spr = true;                             
+                                    i++;
+                                }
+                            }
+                            if (spr)
+                            {}
+                            else
+                            {
+                                znaki[j] = text[i].ToString();
+                                j++;
+                                i++;
+                            }
                         }
                         i++;
                         j = 0;
@@ -214,6 +242,7 @@ namespace Plagiator3000
                         wzory[lwzor] = mat[l];
                         lwzor++;
                         l++;
+                        spr = false;
                     }
                 }
             }

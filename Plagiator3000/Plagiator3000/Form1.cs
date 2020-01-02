@@ -69,7 +69,7 @@ namespace Plagiator3000
             {
                 MessageBox.Show("Musisz jeszcze wybrac folder z plikami!");
             }
-            else if(comboBox1.Text == "")
+            else if (comboBox1.Text == "")
             {
                 MessageBox.Show("Musisz jeszcze wybrać algorytm!");
             }
