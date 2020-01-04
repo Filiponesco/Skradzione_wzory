@@ -40,6 +40,13 @@ namespace Plagiator3000
                 return comboBox1.Text;
             }
         }
+        public string err
+        {
+            get
+            {
+                return comboBox2.Text;
+            }
+        }
 
         public event Action Add_File;
         public event Action Add_Direc;
@@ -73,10 +80,19 @@ namespace Plagiator3000
             {
                 MessageBox.Show("Musisz jeszcze wybrać algorytm!");
             }
+            else if (comboBox2.Text == "")
+            {
+                MessageBox.Show("Musisz jeszcze wybrać od ilu prcent testowny plik jest plagiatem!");
+            }
             else
             {
                 Start_Prog.Invoke();
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

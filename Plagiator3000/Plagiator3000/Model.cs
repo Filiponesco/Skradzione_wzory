@@ -14,6 +14,13 @@ namespace Plagiator3000
     {
         string path;
         string path_dir;
+        string[] table = new string[4];
+        List<double> listwithalgo = new List<double> { };
+        List<double> listmaintex = new List<double> { };
+        List<string[]> main_list = new List<string[]> { };
+        double sum = 0;
+        double main_proc = 0;
+        int iter = 0;
         public string Load_Orig_Latex() //wczytywanie pliku z oryginalnym latexem
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -41,7 +48,7 @@ namespace Plagiator3000
             return path_dir;
         }
 
-        public void SameOrNot(string alg)
+        public void SameOrNot(string alg, string err)
         {
             var files = Directory.EnumerateFiles(path_dir, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".tex"));
             string text = File.ReadAllText(path);
@@ -57,7 +64,7 @@ namespace Plagiator3000
                 Console.WriteLine("SCIEZKA DO PLIKU: ");
                 Console.WriteLine(fileName);
                 string File_Latex = fileName;
-                
+
                 Console.WriteLine("\nWZORY Z PLIKU: ");
 
                 string[] tab_plag = WZORY.Orig_Latex_Operation_Wzory(File_Latex); //tablica ktora przechowuje wzory z plagiatu. Po jednym przejsciu petli foreach wczutuje wzory z nastepnego pliku           
@@ -82,10 +89,23 @@ namespace Plagiator3000
                         
                         Console.WriteLine("SAME OR NOT------------------------------------------ ???");
                         Console.WriteLine(sameornot);
+
+                        listwithalgo.Add(sameornot);
+                        main_list.Add(new string[] {fileName, wzor_plag, wzor_oryg, sameornot.ToString() });
+                        sum += sameornot;
+                        iter++;
                     }
                 }
                 Console.WriteLine("-------------------------------------KONIEC PLIKU------------------------------------");
+
+                main_proc = sum / iter;
+                listmaintex.Add(main_proc);
+                main_proc = 0;
+                sum = 0;
+                iter = 0;
             }
+
+            raport(listmaintex, main_list, err);
         }
 
         public List<String> baza(List<String> sciezki) 
@@ -179,59 +199,123 @@ namespace Plagiator3000
             return koncowe;
         }
 
-        public void raport(int[] tablica_wynikow, string[,] tablica_wynikow_wzory)
+        private string konversjaNajlepszegoSlowaNaSwiecie(string slowo)
         {
-            List<string> wzory_oryg = baza(new List<string> { path });
-            List<string> wzory_test = baza(sciezki(path_dir));
+            string koncowe = "";
+            for (int j = 0; j < slowo.Length; j++)
+            {
+                char sc = slowo[j];
+                if (sc == '\\' && slowo[j+1] == 'i' && slowo[j + 2] == 'n' && slowo[j + 3] == 't')
+                {
+                    koncowe += "\\int ";
+                    j += 3;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'c' && slowo[j + 2] == 'd' && slowo[j + 3] == 'o' && slowo[j + 4] == 't')
+                {
+                    koncowe += "\\cdot ";
+                    j += 4;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'P' && slowo[j + 2] == 'i')
+                {
+                    koncowe += "\\Pi ";
+                    j += 2;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'i' && slowo[j + 2] == 'n')
+                {
+                    koncowe += "\\in ";
+                    j += 2;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'l' && slowo[j + 2] == 'n')
+                {
+                    koncowe += "\\ln ";
+                    j += 2;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 't' && slowo[j + 2] == 'i' && slowo[j + 3] == 'm' && slowo[j + 4] == 'e' && slowo[j + 5] == 's')
+                {
+                    koncowe += "\\times ";
+                    j += 5;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'd' && slowo[j + 2] == 'e' && slowo[j + 3] == 'l' && slowo[j + 4] == 't' && slowo[j + 5] == 'a')
+                {
+                    koncowe += "\\delta ";
+                    j += 5;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'D' && slowo[j + 2] == 'e' && slowo[j + 3] == 'l' && slowo[j + 4] == 't' && slowo[j + 5] == 'a')
+                {
+                    koncowe += "\\Delta ";
+                    j += 5;
+                }
+                else if (sc == '\\' && slowo[j + 1] == 'c' && slowo[j + 2] == 'h' && slowo[j + 3] == 'o' && slowo[j + 4] == 'o' && slowo[j + 5] == 's' && slowo[j + 6] == 'e')
+                {
+                    koncowe += "\\choose ";
+                    j += 6;
+                }
+                else
+                {
+                    koncowe += slowo[j];
+                }
+            }
+            return koncowe;
+        }
+        public void raport(List<double> tablica_wynikow, List<string[]> tablica_wynikow_wzory, string err)
+        {
             List<string> sciezki_test = sciezki(path_dir);
-            int dl = tablica_wynikow.Length;
             string body_tex = "";
             string prebody_tex = "";
-
+            string body_tex2 = "";
+            string prebody_tex2 = "";
+            //Tworzenie stringa z raportem ogólnym
             prebody_tex += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
-            for (int i = 0; i < sciezki_test.Count; i++) 
+            for (int i = 0; i < sciezki_test.Count; i++)
             {
-                string lista_wzorow = "";
-                Console.WriteLine(tablica_wynikow_wzory.GetLength(0));
-                for (int j = 0; j < tablica_wynikow_wzory.GetLength(0); j++)
+                if (tablica_wynikow[i] < int.Parse(err))
                 {
-                    //if (tablica_wynikow_wzory[j, 0] == sciezki_test[i])
-                    if(true)
-                    {
-                        lista_wzorow += "{\\tiny " + tablica_wynikow_wzory[j, 1] + " jest podobny do " + tablica_wynikow_wzory[j, 2] + " w " + tablica_wynikow_wzory[j, 3] + "\\% } \\\\ \n";
-                    }
+                    body_tex += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "\\\\\n{\\huge Stopień podobieństwa: " + tablica_wynikow[i] + "\\%} \\\\ \n" + "\n\\end{flushleft}\n\\hrule\n";
                 }
-                body_tex += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "\\\\\n{\\huge Stopień podobieństwa: " + tablica_wynikow[i] + "\\%} \\\\ \n" + "Lista podobnych wzorów: \\\\ \n" + lista_wzorow + "\n\\end{flushleft}\n\\hrule\n";
+                else
+                {
+                    body_tex += "\\begin{flushleft}\n" + "Plik : \\textcolor{Red}{";
+                    body_tex += konwersjaSlowa(sciezki_test[i]);
+                    body_tex += "}\\\\\n{\\huge Stopień podobieństwa: \\textcolor{Red}{";
+                    body_tex += tablica_wynikow[i] + "}\\%} \\\\ \n" + "\n\\end{flushleft}\n\\hrule\n";
+                }
             }
-            var raportTEX = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\usepackage{ragged2e}\n\\begin{document}\n\\title{\\huge\\bfseries Raport porównania plików }\n\\date{\\today}\n\\maketitle\n" + prebody_tex + body_tex + "\\end{document}";
+            var raportTEX = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\usepackage{ragged2e}\n\\usepackage[dvipsnames]{xcolor}\n\\begin{document}\n\\title{\\huge\\bfseries Raport ogólny porównania plików }\n\\date{\\today}\n\\maketitle\n" + prebody_tex + body_tex + "\\end{document}";
 
-            string PATH = path_dir + "\\raport";
-            string PATHtex = PATH + "\\raport.tex";
-            string PATHbat = PATH + "\\batch.bat";
+            //Tworzenie stringa z raportem szczegółowym
+            prebody_tex2 += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
+            for (int i = 0; i < sciezki_test.Count; i++)
+            {
+                string lista_wzorow2 = "";
+                for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
+                {
+                    lista_wzorow2 += "{\\tiny $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + "$ jest podobny do $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + "$ w " + tablica_wynikow_wzory[j][3] + "\\% } \\\\ \n";
+                }
+                body_tex2 += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "Lista podobnych wzorów: \\\\ \n" + lista_wzorow2 + "\n\\end{flushleft}\n\\hrule\n";
+            }
+            var raportTEX2 = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\usepackage{ragged2e}\n\\begin{document}\n\\title{\\huge\\bfseries Raport szczegółowy porównania plików }\n\\date{\\today}\n\\maketitle\n" + prebody_tex2 + body_tex2 + "\\end{document}";
+
+
+            //Zapis
+            DateTime dt = DateTime.Now;
+            string PATH = Path.GetDirectoryName(path) + "\\raport\\" + dt.ToString("MM_dd_yyyy_hh_mm_ss_ffff");
+            string PATHtex = PATH + "\\raportOGL.tex";
+            string PATHtex2 = PATH + "\\raportSZCZ.tex";
             bool exists = System.IO.Directory.Exists(PATH);
             if (exists)
             {
                 Console.WriteLine("Stworzono raport do istniejącej ścieżki raport");
                 System.IO.File.WriteAllText(PATHtex, raportTEX);
+                System.IO.File.WriteAllText(PATHtex2, raportTEX2);
             }
             else if (!exists)
             {
                 Console.WriteLine("Stworzono raport do nie istniejącej ścieżki raport");
                 System.IO.Directory.CreateDirectory(PATH);
                 System.IO.File.WriteAllText(PATHtex, raportTEX);
+                System.IO.File.WriteAllText(PATHtex2, raportTEX2);
                 //Process.Start("chrome.exe", PATHtex);
             }
-
-            //Process p1 = new Process();
-            //string batbatch = "rem %1 represents the file name with no extension.\npdflatex - shell - escape % 1";
-            //System.IO.File.WriteAllText(PATHbat, batbatch);
-            //p1.StartInfo.FileName = PATHbat;
-            //p1.StartInfo.Arguments = PATHtex;
-            //p1.StartInfo.UseShellExecute = false;
-            //p1.Start();
-            //p1.WaitForExit();
-
-
             MessageBox.Show("Raport został stworzony");
         }
     }
