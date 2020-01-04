@@ -89,10 +89,5 @@ namespace Plagiator3000
                 Start_Prog.Invoke();
             }
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
