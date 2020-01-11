@@ -286,14 +286,15 @@ namespace Plagiator3000
             prebody_tex2 += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
             for (int i = 0; i < sciezki_test.Count; i++)
             {
-                string lista_wzorow2 = "";
-                for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
+                string lista_wzorow2 = "\\begin{longtable}{|c|c|c|} \n \\hline \n Wzór & Jest podobny do & Procent podobieństwa \\\\ \\hline  \n";
+		        for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
                 {
-                    lista_wzorow2 += "{\\tiny $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + "$ jest podobny do $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + "$ w " + tablica_wynikow_wzory[j][3] + "\\% } \\\\ \n";
+                    lista_wzorow2 += "$" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + "$ & $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + "$ & $" + tablica_wynikow_wzory[j][3] + "$ \\\\ \\hline \n";
                 }
-                body_tex2 += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "Lista podobnych wzorów: \\\\ \n" + lista_wzorow2 + "\n\\end{flushleft}\n\\hrule\n";
+                lista_wzorow2 += "\\end{longtable} \n";
+                body_tex2 += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "\\\\ \nLista podobnych wzorów: \\\\ \n" + lista_wzorow2 + "\n\\end{flushleft}\n\\hrule\n";
             }
-            var raportTEX2 = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\usepackage{ragged2e}\n\\begin{document}\n\\title{\\huge\\bfseries Raport szczegółowy porównania plików }\n\\date{\\today}\n\\maketitle\n" + prebody_tex2 + body_tex2 + "\\end{document}";
+            var raportTEX2 = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\usepackage{ragged2e}\n\\usepackage{longtable}\n\\begin{document}\n\\title{\\huge\\bfseries Raport szczegółowy porównania plików }\n\\date{\\today}\n\\maketitle\n" + prebody_tex2 + body_tex2 + "\\end{document}";
 
 
             //Zapis
