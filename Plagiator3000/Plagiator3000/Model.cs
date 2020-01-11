@@ -264,6 +264,9 @@ namespace Plagiator3000
             string prebody_tex = "";
             string body_tex2 = "";
             string prebody_tex2 = "";
+            string body_html3 = "";
+            string body_html4 = "";
+
             //Tworzenie stringa z raportem ogólnym
             prebody_tex += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
             for (int i = 0; i < sciezki_test.Count; i++)
@@ -296,18 +299,51 @@ namespace Plagiator3000
             }
             var raportTEX2 = "\\documentclass{article}\n\\usepackage{polski}\n\\usepackage[utf8]{inputenc}\n\\usepackage{ragged2e}\n\\usepackage{longtable}\n\\begin{document}\n\\title{\\huge\\bfseries Raport szczegółowy porównania plików }\n\\date{\\today}\n\\maketitle\n" + prebody_tex2 + body_tex2 + "\\end{document}";
 
+            //HTML
+            //Tworzenie stringa z raportem ogólnym
+            for (int i = 0; i < sciezki_test.Count; i++)
+            {
+                if (tablica_wynikow[i] < int.Parse(err))//nie zaznacza na czerwono 
+                {
+                    body_html3 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <h2>Stopień podobieństwa: </h2> \n <h3> " + tablica_wynikow[i] + " </h3> \n <hr> \n";
+                }
+                else//zaznacza na czerwono
+                {
+                    Console.WriteLine("Nie działa "); 
+                    body_html3 += "<h3><font color=\"red\">Plik: " + sciezki_test[i] + " </font></h3> \n <h2>Stopień podobieństwa: </h2> \n <h3><font color=\"red\"> " + tablica_wynikow[i] + " </font></h3> \n <hr> \n";
+                }
+            }
+            var raportTEX3 = "<!DOCTYPE html> \n <html lang=\"pl\"> \n <head> \n <meta charset=\"utf-8\"> \n <script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script> \n <title>Raport</title> \n </head> \n <body> \n <header> \n <h1>Raport ogólny porównania plików</h1> \n </header> \n <h2>Plik bazowy: " + path + "</h2> \n <hr> \n " + body_html3 + " </body> \n </html>";
+
+            //Tworzenie stringa z raportem szczegółowym
+            for (int i = 0; i < sciezki_test.Count; i++)
+            {
+                body_html4 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <hr> \n <table style=\"width:100% \"> \n <tr> \n <th>Wzór</th> \n <th>Jest podobny do </th> \n <th>Procent podobieństwa</th> \n </tr> \n";
+                for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
+                {
+                    body_html4 += "<tr> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + " </script></td> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + " </script></td> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][3]) + " </script></td> \n </tr> \n";
+                }
+                body_html4 += "</table> \n";
+            }
+            var raportTEX4 = "<!DOCTYPE html> \n <html lang=\"pl\"> \n <head> \n <meta charset=\"utf-8\"> \n <script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script> \n <title>Raport</title> \n <style> \n table, th, td { \n border: 1px solid black; \n } \n </style> \n </head> \n <body> \n <header> \n <h1>Raport szczegółowy porównania plików</h1> \n </header> \n <h2>Plik bazowy: " + path + "</h2> \n" + body_html4 + " </body> \n </html>";
 
             //Zapis
             DateTime dt = DateTime.Now;
             string PATH = Path.GetDirectoryName(path) + "\\raport\\" + dt.ToString("MM_dd_yyyy_hh_mm_ss_ffff");
             string PATHtex = PATH + "\\raportOGL.tex";
             string PATHtex2 = PATH + "\\raportSZCZ.tex";
+            string PATHtex3 = PATH + "\\raportOGL.html";
+            string PATHtex4 = PATH + "\\raportSZCZ.html";
             bool exists = System.IO.Directory.Exists(PATH);
             if (exists)
             {
                 Console.WriteLine("Stworzono raport do istniejącej ścieżki raport");
                 System.IO.File.WriteAllText(PATHtex, raportTEX);
                 System.IO.File.WriteAllText(PATHtex2, raportTEX2);
+                System.IO.File.WriteAllText(PATHtex3, raportTEX3);
+                System.IO.File.WriteAllText(PATHtex4, raportTEX4);
+                Process.Start("chrome.exe", PATHtex3);
+                Process.Start("chrome.exe", PATHtex4);
             }
             else if (!exists)
             {
@@ -315,7 +351,10 @@ namespace Plagiator3000
                 System.IO.Directory.CreateDirectory(PATH);
                 System.IO.File.WriteAllText(PATHtex, raportTEX);
                 System.IO.File.WriteAllText(PATHtex2, raportTEX2);
-                //Process.Start("chrome.exe", PATHtex);
+                System.IO.File.WriteAllText(PATHtex3, raportTEX3);
+                System.IO.File.WriteAllText(PATHtex4, raportTEX4);
+                Process.Start("chrome.exe", PATHtex3);
+                Process.Start("chrome.exe", PATHtex4);
             }
             MessageBox.Show("Raport został stworzony");
         }
