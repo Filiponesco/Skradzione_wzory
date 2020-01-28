@@ -336,7 +336,6 @@ namespace Plagiator3000
             bool exists = System.IO.Directory.Exists(PATH);
             if (exists)
             {
-                Console.WriteLine("Stworzono raport do istniejącej ścieżki raport");
                 System.IO.File.WriteAllText(PATHtex, raportTEX);
                 System.IO.File.WriteAllText(PATHtex2, raportTEX2);
                 System.IO.File.WriteAllText(PATHtex3, raportTEX3);
@@ -346,7 +345,6 @@ namespace Plagiator3000
             }
             else if (!exists)
             {
-                Console.WriteLine("Stworzono raport do nie istniejącej ścieżki raport");
                 System.IO.Directory.CreateDirectory(PATH);
                 System.IO.File.WriteAllText(PATHtex, raportTEX);
                 System.IO.File.WriteAllText(PATHtex2, raportTEX2);
