@@ -309,7 +309,6 @@ namespace Plagiator3000
                 }
                 else//zaznacza na czerwono
                 {
-                    Console.WriteLine("Nie działa "); 
                     body_html3 += "<h3><font color=\"red\">Plik: " + sciezki_test[i] + " </font></h3> \n <h2>Stopień podobieństwa: </h2> \n <h3><font color=\"red\"> " + tablica_wynikow[i] + " </font></h3> \n <hr> \n";
                 }
             }
