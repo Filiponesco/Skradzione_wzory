@@ -59,6 +59,7 @@ namespace Plagiator3000
             string wzor_oryg, wzor_plag; //zmienne gdzie sa przechowywane kolejno wzor oryginalu i wzor z plagiatu
             double sameornot; //zmienna ktora przechowuje podobienstwo
             Console.WriteLine("-------------------------------------BAZA PLIKOW:---------------------------------");
+            double maxEucl = 0;
             foreach (string fileName in files)
             {
                 Console.WriteLine("SCIEZKA DO PLIKU: ");
@@ -80,13 +81,16 @@ namespace Plagiator3000
                         Console.WriteLine("Wzor plagiatu: " + wzor_plag);
                         if (alg == "CosineDistance")
                         { 
-                            sameornot = Algorytm.CosineDistance(wzor_oryg, wzor_plag);
+                            double cosDist = Algorytm.CosineDistance(wzor_oryg, wzor_plag);
+                            sameornot = Algorytm.ToPercent(alg, cosDist);
                         }
                         else 
                         {
-                            sameornot = Algorytm.EuclideanDistance(wzor_oryg, wzor_plag);
+                            double euclDist = Algorytm.EuclideanDistance(wzor_oryg, wzor_plag);
+                            sameornot = Algorytm.ToPercent(alg, euclDist);
+                            //sameornot = Algorytm.EuclideanDistance(wzor_oryg, wzor_plag);
+                            //if (sameornot > maxEucl) maxEucl = sameornot;
                         }
-                        
                         Console.WriteLine("SAME OR NOT------------------------------------------ ???");
                         Console.WriteLine(sameornot);
 
@@ -96,6 +100,7 @@ namespace Plagiator3000
                         iter++;
                     }
                 }
+                Console.WriteLine("Max Eucl: " + maxEucl);
                 Console.WriteLine("-------------------------------------KONIEC PLIKU------------------------------------");
 
                 main_proc = sum / iter;

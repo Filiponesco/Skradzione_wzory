@@ -8,6 +8,7 @@ namespace Plagiator3000
 {
     class Algorytm
     {
+        const double maxOfEuclidean = 7;
         private static char[] PatternToLetters(string pattern)
         {
             char[] letters = new char[pattern.Length];
@@ -139,6 +140,27 @@ namespace Plagiator3000
             }
             euclideanDistance = Math.Sqrt(suma);
             return euclideanDistance;
+        }
+        public static double ToPercent(string algorytm, double lb)
+        {
+            double result = 0;
+            if(algorytm == "CosineDistance")
+            {
+                result = Scale(lb, 0, 1, 1, 0);
+            }
+            else
+            {
+                result = Scale(lb, 0, maxOfEuclidean, 1, 0);
+            }
+            return result * 100; //percent
+        }
+        public static double Scale(double lb, double min, double max, double minScale, double maxScale)
+        {
+            //y=mx+c
+            double m = (maxScale - minScale) / (max - min);
+            double c = minScale - min * m;
+            double result = m * lb + c;
+            return result;
         }
     }
 }
