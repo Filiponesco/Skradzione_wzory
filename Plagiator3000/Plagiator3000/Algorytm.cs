@@ -165,20 +165,19 @@ namespace Plagiator3000
             double result = 0;
             if(algorytm == "CosineDistance")
             {
-                result = Scale(lb, 0, 1, 1, 0);
+                result = (double) (1 - lb);
             }
             else
             {
-                result = Scale(lb, 0, maxOfEuclidean, 1, 0);
+                double pom = (double) (maxOfEuclidean - lb);
+                result = Scale(pom, 0.0, maxOfEuclidean, 0.0, 1.0);
             }
             return result * 100; //percent
         }
-        private static double Scale(double lb, double min, double max, double minScale, double maxScale)
+        private static double Scale(double value, double min, double max, double toMin, double toMax)
         {
             //y=mx+c
-            double m = (maxScale - minScale) / (max - min);
-            double c = minScale - min * m;
-            double result = m * lb + c;
+            double result = (value - min) / (max - min) * (toMax - toMin) + toMin;
             return result;
         }
     }

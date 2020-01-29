@@ -33,6 +33,7 @@ namespace Plagiator3000
                     path = openFileDialog.FileName;
                 }
             }
+            path = @"C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\TEXfiles\Testy\1.tex";
             return path;
         }
 
@@ -45,6 +46,7 @@ namespace Plagiator3000
                     path_dir = win.SelectedPath;
                 }
             }
+            path_dir = @"C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\TEXfiles\Testy\copy";
             return path_dir;
         }
 
@@ -79,7 +81,7 @@ namespace Plagiator3000
                         Console.WriteLine("\nWzor oryginalny: " + wzor_oryg);
                         Console.WriteLine("Wzor plagiatu: " + wzor_plag);
                         if (alg == "CosineDistance")
-                        { 
+                        {
                             double cosDist = Algorytm.CosineDistance(wzor_oryg, wzor_plag);
                             sameornot = Algorytm.ToPercent(alg, cosDist);
                         }
