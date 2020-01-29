@@ -97,6 +97,7 @@ namespace Plagiator3000
 
             frqLtrsCopy = DeleteOtherCharInCopy(frqLtrsOrig, frqLtrsCopy);
 
+
             foreach (var c in frqLtrsOrig)
             {
                 mianOrig += Math.Pow(c.Value, 2);
@@ -114,6 +115,12 @@ namespace Plagiator3000
             for (int i = 0; i < frqLtrsOrig.Count; i++)
             {
                 licznik += frqLtrsOrig.ElementAt(i).Value * frqLtrsCopy.ElementAt(i).Value;
+            }
+
+            //jeśli mianownik jest równe 0 oznacza, że żadna litera się nie powtórzyła w plagiacie
+            if (mianownik == 0)
+            {
+                return 1.0;
             }
 
             double cosSimilarity = licznik / mianownik;
