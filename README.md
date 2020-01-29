@@ -1,7 +1,8 @@
 # Skradzione_wzory
  Semestr V inżynieria oprogramowania - projekt
  
-### Testowa baza danych
+# Testy
+## Baza danych
 Baza testowa składająca się z 10 plików oryginalnych oraz po 5 kopii dla każdego oryginału (w sumie 50 kopii) wyznaczyła następujące maksymalne wartości dla algorytmu "Euclidean distance":
  - 1: 23,72762
  - 2: 17,77639
@@ -15,3 +16,14 @@ Baza testowa składająca się z 10 plików oryginalnych oraz po 5 kopii dla ka�
  - 10: 15,19868
 
 Wartość maksymalna została przypisana do zmiennej "maxOfEuclidean" w klasie: "Algorytm.cs"
+
+## Algorytmy: 
+### Cosine distance
+ Po wprowadzeniu identycznych danych jak na stronie internetowej: https://neo4j.com/docs/graph-algorithms/current/labs-algorithms/cosine/
+ otrzymaliśmy identyczny wynik.
+ 
+ #### Strona internetowa
+![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/zrzut_strony.JPG)
+
+#### Nasz wynik
+![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/zrzut_raportu_html.JPG)
