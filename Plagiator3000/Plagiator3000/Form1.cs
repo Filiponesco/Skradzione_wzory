@@ -59,11 +59,13 @@ namespace Plagiator3000
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Add_File.Invoke();  
+            label4.Visible = true;
+            Add_File.Invoke();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            label6.Visible = true;
             Add_Direc.Invoke();
         }
 

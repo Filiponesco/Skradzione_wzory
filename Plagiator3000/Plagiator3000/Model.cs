@@ -26,6 +26,7 @@ namespace Plagiator3000
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "tex files (*.tex)|*.tex|All files (*.*)|*.*";
                 openFileDialog.RestoreDirectory = true;
 
                 if(openFileDialog.ShowDialog() == DialogResult.OK)
@@ -33,7 +34,6 @@ namespace Plagiator3000
                     path = openFileDialog.FileName;
                 }
             }
-            path = @"C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\TEXfiles\Testy\1.tex";
             return path;
         }
 
@@ -46,7 +46,6 @@ namespace Plagiator3000
                     path_dir = win.SelectedPath;
                 }
             }
-            path_dir = @"C:\Users\fifig\Documents\GitHub\Skradzione_wzory\Plagiator3000\TEXfiles\Testy\copy";
             return path_dir;
         }
 
