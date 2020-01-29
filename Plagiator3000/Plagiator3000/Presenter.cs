@@ -22,17 +22,38 @@ namespace Plagiator3000
 
         public void OriginalFile()
         {
-            view.file = model.Load_Orig_Latex();
+            try
+            {
+                view.file = model.Load_Orig_Latex();
+            }
+            catch(Exception e)
+            {
+                view.Message("Błąd ładowania oryginalnych plików: " + e.Message);
+            }
         }
 
         public void Plag_Direc()
         {
-            view.direct = model.Load_Plagiat_Direc();
+            try
+            {
+                view.direct = model.Load_Plagiat_Direc();
+            }
+            catch (Exception e)
+            {
+                view.Message("Błąd ładowania plagiatów: " + e.Message);
+            }
         }
 
         public void Operation()
         {
-            model.SameOrNot(view.alg, view.err);
+            try
+            {
+                model.SameOrNot(view.alg, view.err);
+            }
+            catch (Exception e)
+            {
+                view.Message("Błąd algorytmu: " + e.Message);
+            }
         }
 
     }

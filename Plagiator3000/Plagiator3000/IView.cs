@@ -13,6 +13,8 @@ namespace Plagiator3000
         string alg { get; }
         string err { get; }
 
+        void Message(string s);
+
         event Action Add_File;
         event Action Add_Direc;
         event Action Start_Prog;

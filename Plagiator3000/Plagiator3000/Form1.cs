@@ -52,6 +52,11 @@ namespace Plagiator3000
         public event Action Add_Direc;
         public event Action Start_Prog;
 
+        public void Message(string s)
+        {
+            MessageBox.Show(s);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             Add_File.Invoke();  
