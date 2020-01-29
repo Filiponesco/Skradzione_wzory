@@ -290,7 +290,7 @@ namespace Plagiator3000
             prebody_tex2 += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
             for (int i = 0; i < sciezki_test.Count; i++)
             {
-                string lista_wzorow2 = "\\begin{longtable}{|c|c|c|} \n \\hline \n Wzór & Jest podobny do & Procent podobieństwa \\\\ \\hline  \n";
+                string lista_wzorow2 = "\\begin{longtable}{|c|c|c|} \n \\hline \n Wzór & Jest podobny do wzoru oryginalnego & Procent podobieństwa \\\\ \\hline  \n";
 		        for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
                 {
                     lista_wzorow2 += "$" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + "$ & $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + "$ & $" + tablica_wynikow_wzory[j][3] + "$ \\\\ \\hline \n";
@@ -318,7 +318,7 @@ namespace Plagiator3000
             //Tworzenie stringa z raportem szczegółowym
             for (int i = 0; i < sciezki_test.Count; i++)
             {
-                body_html4 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <hr> \n <table style=\"width:100% \"> \n <tr> \n <th>Wzór</th> \n <th>Jest podobny do </th> \n <th>Procent podobieństwa</th> \n </tr> \n";
+                body_html4 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <hr> \n <table style=\"width:100% \"> \n <tr> \n <th>Wzór</th> \n <th>Jest podobny do wzoru oryginalnego </th> \n <th>Procent podobieństwa</th> \n </tr> \n";
                 for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
                 {
                     body_html4 += "<tr> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + " </script></td> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + " </script></td> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][3]) + " </script></td> \n </tr> \n";
