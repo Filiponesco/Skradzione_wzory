@@ -81,17 +81,13 @@ namespace Plagiator3000
         }
         public static double CosineDistance(string wzorOrig, string wzorCopy)
         {
+            ReturnExceptionIfNullOrEmpty(wzorOrig, wzorCopy);
+
             double licznik = 0;
             double mianownik;
             double mianOrig = 0; //pierwiastek(ai ^2)
             double mianCopy = 0; //pierwiastek(bi ^2)
             double cosDistance;
-
-            if (String.IsNullOrEmpty(wzorOrig))
-                throw new Exception("wzor oryginalny jest pusty!");
-
-            if (String.IsNullOrEmpty(wzorCopy))
-                throw new Exception("wzor plagiat jest pusty!");
 
             char[] lettersOrig = PatternToLetters(wzorOrig);
             char[] lettersCopy = PatternToLetters(wzorCopy);
@@ -126,6 +122,8 @@ namespace Plagiator3000
         }
         public static double EuclideanDistance(string wzorOrig, string wzorCopy)
         {
+            ReturnExceptionIfNullOrEmpty(wzorOrig, wzorCopy);
+
             char[] lettersOrig = PatternToLetters(wzorOrig);
             char[] lettersCopy = PatternToLetters(wzorCopy);
 
@@ -147,6 +145,14 @@ namespace Plagiator3000
             euclideanDistance = Math.Sqrt(suma);
             return euclideanDistance;
         }
+        private static void ReturnExceptionIfNullOrEmpty(string o, string c)
+        {
+            if (String.IsNullOrEmpty(o))
+                throw new Exception("wzor oryginalny jest pusty!");
+
+            if (String.IsNullOrEmpty(c))
+                throw new Exception("wzor plagiat jest pusty!");
+        }
         public static double ToPercent(string algorytm, double lb)
         {
             double result = 0;
@@ -160,7 +166,7 @@ namespace Plagiator3000
             }
             return result * 100; //percent
         }
-        public static double Scale(double lb, double min, double max, double minScale, double maxScale)
+        private static double Scale(double lb, double min, double max, double minScale, double maxScale)
         {
             //y=mx+c
             double m = (maxScale - minScale) / (max - min);
