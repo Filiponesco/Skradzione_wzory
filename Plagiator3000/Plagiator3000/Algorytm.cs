@@ -8,7 +8,7 @@ namespace Plagiator3000
 {
     class Algorytm
     {
-        const double maxOfEuclidean = 7;
+        const double maxOfEuclidean = 44.65424;
         private static char[] PatternToLetters(string pattern)
         {
             char[] letters = new char[pattern.Length];
