@@ -27,3 +27,36 @@ Wartość maksymalna została przypisana do zmiennej "maxOfEuclidean" w klasie: 
 
 #### Nasz wynik
 ![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/zrzut_raportu_html.JPG)
+
+
+### Euclidean distance
+
+ #### Strona internetowa
+![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/euclidean_source.JPG)
+
+#### Nasz wynik
+![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/html_euclidean.JPG)
+
+Nasz wynik wynosi: 80,9978148228733, jest to procent podobieństwa. Sam algorytm euclidean distance zwraca dystans z przedziału od 0 do nieskończoności. Wyznaczyliśmy maksymalną granicę poprzez "przepuszczenie" algorytmu przez cała bazę danych. MaxOfEuclidean wynosi dla naszej bazy 44.65423.
+Procent podobieństwa wyznaczony jest wg następującego kodu: 
+
+lb - wartość zwrócona przez algorytm
+
+```
+double pom = (double) (maxOfEuclidean - lb);
+result = Scale(pom, 0.0, maxOfEuclidean, 0.0, 1.0);
+
+private static double Scale(double value, double min, double max, double toMin, double toMax)
+{
+    //y=mx+c
+    double result = (value - min) / (max - min) * (toMax - toMin) + toMin;
+    return result;
+    }
+```
+Na końcu rezultat mnożony jest razy 100.
+
+pom = 44.65423 - 8.485 = 36.16923   
+result = (36.16923 - 0) / (44.65423 - 0) * (1 - 0) + 0   
+result = 0.80998   
+
+Zatem wynik jest poprawny.
