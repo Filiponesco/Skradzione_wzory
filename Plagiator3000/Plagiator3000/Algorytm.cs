@@ -87,6 +87,12 @@ namespace Plagiator3000
             double mianCopy = 0; //pierwiastek(bi ^2)
             double cosDistance;
 
+            if (String.IsNullOrEmpty(wzorOrig))
+                throw new Exception("wzor oryginalny jest pusty!");
+
+            if (String.IsNullOrEmpty(wzorCopy))
+                throw new Exception("wzor plagiat jest pusty!");
+
             char[] lettersOrig = PatternToLetters(wzorOrig);
             char[] lettersCopy = PatternToLetters(wzorCopy);
 
