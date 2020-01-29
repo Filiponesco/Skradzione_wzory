@@ -267,6 +267,7 @@ namespace Plagiator3000
             string prebody_tex2 = "";
             string body_html3 = "";
             string body_html4 = "";
+            tablica_wynikow_wzory = sotr(tablica_wynikow_wzory);
 
             //Tworzenie stringa z raportem ogólnym
             prebody_tex += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
@@ -291,7 +292,7 @@ namespace Plagiator3000
             for (int i = 0; i < sciezki_test.Count; i++)
             {
                 string lista_wzorow2 = "\\begin{longtable}{|c|c|c|} \n \\hline \n Wzór & Jest podobny do wzoru oryginalnego & Procent podobieństwa \\\\ \\hline  \n";
-		        for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
+                for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
                 {
                     lista_wzorow2 += "$" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + "$ & $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + "$ & $" + tablica_wynikow_wzory[j][3] + "$ \\\\ \\hline \n";
                 }
@@ -355,6 +356,34 @@ namespace Plagiator3000
                 Process.Start("chrome.exe", PATHtex4);
             }
             MessageBox.Show("Raport został stworzony");
+
+            sotr(tablica_wynikow_wzory);
+        }
+    
+        private List<string[]> sotr(List<string[]> lista)
+        {
+            List<string[]> done = new List<string[]> { };
+            int iter = lista.Count;
+            for(int i = 0; i < iter; i++)
+            {
+                int najm = 0;
+                for(int j = 0; j < iter - i; j++)
+                {
+                    if (float.Parse(lista[najm][3]) <= float.Parse(lista[j][3]))
+                    {
+                        najm = j;
+                    }
+                }
+
+                done.Add(lista[najm]);
+                lista.Remove(lista[najm]);
+            }
+
+            //for (int i = 0; i < iter; i++)
+            //{
+            //    Console.WriteLine(done[i][3]);
+            //}
+            return done;
         }
     }
 }
