@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Plagiator3000
@@ -82,18 +81,17 @@ namespace Plagiator3000
         }
         public static double CosineDistance(string wzorOrig, string wzorCopy)
         {
-            ReturnExceptionIfNullOrEmpty(wzorOrig, wzorCopy);
-
-            wzorOrig = ChangeMathSymbolToOneLetter(wzorOrig);
-            wzorCopy = ChangeMathSymbolToOneLetter(wzorCopy);
-
-            ReturnExceptionIfNullOrEmpty(wzorOrig, wzorCopy);
-
             double licznik = 0;
             double mianownik;
             double mianOrig = 0; //pierwiastek(ai ^2)
             double mianCopy = 0; //pierwiastek(bi ^2)
             double cosDistance;
+
+            if (String.IsNullOrEmpty(wzorOrig))
+                throw new Exception("wzor oryginalny jest pusty!");
+
+            if (String.IsNullOrEmpty(wzorCopy))
+                throw new Exception("wzor plagiat jest pusty!");
 
             char[] lettersOrig = PatternToLetters(wzorOrig);
             char[] lettersCopy = PatternToLetters(wzorCopy);
@@ -102,7 +100,6 @@ namespace Plagiator3000
             Dictionary<char, int> frqLtrsCopy = CountFrequentlyOfLetters(lettersCopy);
 
             frqLtrsCopy = DeleteOtherCharInCopy(frqLtrsOrig, frqLtrsCopy);
-
 
             foreach (var c in frqLtrsOrig)
             {
@@ -123,25 +120,12 @@ namespace Plagiator3000
                 licznik += frqLtrsOrig.ElementAt(i).Value * frqLtrsCopy.ElementAt(i).Value;
             }
 
-            //jeśli mianownik jest równe 0 oznacza, że żadna litera się nie powtórzyła w plagiacie
-            if (mianownik == 0)
-            {
-                return 1.0;
-            }
-
             double cosSimilarity = licznik / mianownik;
             cosDistance = 1 - cosSimilarity;
             return cosDistance;
         }
         public static double EuclideanDistance(string wzorOrig, string wzorCopy)
         {
-            ReturnExceptionIfNullOrEmpty(wzorOrig, wzorCopy);
-
-            wzorOrig = ChangeMathSymbolToOneLetter(wzorOrig);
-            wzorCopy = ChangeMathSymbolToOneLetter(wzorCopy);
-
-            ReturnExceptionIfNullOrEmpty(wzorOrig, wzorCopy);
-
             char[] lettersOrig = PatternToLetters(wzorOrig);
             char[] lettersCopy = PatternToLetters(wzorCopy);
 
@@ -163,72 +147,40 @@ namespace Plagiator3000
             euclideanDistance = Math.Sqrt(suma);
             return euclideanDistance;
         }
-        private static void ReturnExceptionIfNullOrEmpty(string o, string c)
-        {
-            if (String.IsNullOrEmpty(o))
-                throw new Exception("wzor oryginalny jest pusty!");
 
-            if (String.IsNullOrEmpty(c))
-                throw new Exception("wzor plagiat jest pusty!");
+        public static double Trzeci(string[] wzorOrig, string[] wzorCopy)
+        {
+            int sumoforig = 0;
+            int sumofcopy = 0;
+            double third;
+            for (int k = 0; k < wzorOrig.Length; k++)
+                sumoforig += wzorOrig[k].ToString().Length;
+            for (int k = 0; k < wzorCopy.Length; k++)
+                sumofcopy += wzorCopy[k].ToString().Length;
+            third = sumoforig - sumofcopy;
+            Console.WriteLine(sumofcopy);
+            Console.WriteLine(sumoforig);
+            return third;
         }
         public static double ToPercent(string algorytm, double lb)
         {
             double result = 0;
-            if(algorytm == "CosineDistance")
+            if (algorytm == "CosineDistance")
             {
-                result = (double) (1 - lb);
+                result = Scale(lb, 0, 1, 1, 0);
             }
             else
             {
-                double pom = (double) (maxOfEuclidean - lb);
-                result = Scale(pom, 0.0, maxOfEuclidean, 0.0, 1.0);
+                result = Scale(lb, 0, maxOfEuclidean, 1, 0);
             }
             return result * 100; //percent
         }
-        private static double Scale(double value, double min, double max, double toMin, double toMax)
+        public static double Scale(double lb, double min, double max, double minScale, double maxScale)
         {
             //y=mx+c
-            double result = (value - min) / (max - min) * (toMax - toMin) + toMin;
-            return result;
-        }
-        private static string ChangeMathSymbolToOneLetter(string pattern)
-        {
-            string result = pattern;
-            string[] symbols = new string[15];
-            symbols[0] = @"\\frac";
-            symbols[1] = @"\\sqrt";
-            symbols[2] = @"\\lim";
-            symbols[3] = @"{";
-            symbols[4] = @"}";
-            symbols[5] = @"\\left";
-            symbols[6] = @"\\right";
-            symbols[7] = @"\\int";
-            symbols[8] = @"\\limits";
-            symbols[9] = @"\\in";
-            symbols[10] = @"\\prod";
-            symbols[11] = @"\cdot";
-            symbols[12] = @"\\";
-            symbols[13] = @"!";
-            symbols[14] = @"_";
-
-            //string symbol = @"\\frac";
-
-            result = Regex.Replace(result, symbols[0], "f");
-            result = Regex.Replace(result, symbols[1], "s");
-            result = Regex.Replace(result, symbols[2], "l");
-            result = Regex.Replace(result, symbols[3], String.Empty);
-            result = Regex.Replace(result, symbols[4], String.Empty);
-            result = Regex.Replace(result, symbols[5], String.Empty);
-            result = Regex.Replace(result, symbols[6], String.Empty);
-            result = Regex.Replace(result, symbols[7], "i");
-            result = Regex.Replace(result, symbols[8], "m");
-            result = Regex.Replace(result, symbols[9], "n");
-            result = Regex.Replace(result, symbols[10], "p");
-            result = Regex.Replace(result, symbols[11], "c");
-            result = Regex.Replace(result, symbols[12], String.Empty);
-            result = Regex.Replace(result, symbols[13], String.Empty);
-            result = Regex.Replace(result, symbols[14], String.Empty);
-            Console.WriteLine("REGEX: " + result);
+            double m = (maxScale - minScale) / (max - min);
+            double c = minScale - min * m;
+            double result = m * lb + c;
             return result;
         }
     }
