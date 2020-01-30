@@ -42,6 +42,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -95,7 +96,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button3.Location = new System.Drawing.Point(202, 324);
+            this.button3.Location = new System.Drawing.Point(189, 386);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(60, 38);
@@ -306,12 +307,24 @@
             this.label9.TabIndex = 13;
             this.label9.Text = "% podobieństwa";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Location = new System.Drawing.Point(94, 340);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(389, 19);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "Pamiętaj by wybrane pliki miały poprawną składnię plików .tex";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(931, 393);
+            this.ClientSize = new System.Drawing.Size(931, 444);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -352,6 +365,7 @@
         public System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 
