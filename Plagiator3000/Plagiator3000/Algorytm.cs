@@ -9,7 +9,7 @@ namespace Plagiator3000
 {
     class Algorytm
     {
-        const double maxOfEuclidean = 44.65424;
+        const double maxOfEuclidean = 10;
         private static char[] PatternToLetters(string pattern)
         {
             char[] letters = new char[pattern.Length];
@@ -163,6 +163,22 @@ namespace Plagiator3000
             euclideanDistance = Math.Sqrt(suma);
             return euclideanDistance;
         }
+
+        public static double Trzeci(string[] wzorOrig, string[] wzorCopy)
+        {
+            int sumoforig = 0;
+            int sumofcopy = 0;
+            double third;
+            for (int k = 0; k < wzorOrig.Length; k++)
+                sumoforig += wzorOrig[k].ToString().Length;
+            for (int k = 0; k < wzorCopy.Length; k++)
+                sumofcopy += wzorCopy[k].ToString().Length;
+            third = sumoforig - sumofcopy;
+            Console.WriteLine(sumofcopy);
+            Console.WriteLine(sumoforig);
+            return third;
+        }
+
         private static void ReturnExceptionIfNullOrEmpty(string o, string c)
         {
             if (String.IsNullOrEmpty(o))
@@ -213,23 +229,24 @@ namespace Plagiator3000
 
             //string symbol = @"\\frac";
 
-            result = Regex.Replace(result, symbols[0], "f");
-            result = Regex.Replace(result, symbols[1], "s");
-            result = Regex.Replace(result, symbols[2], "l");
+            result = Regex.Replace(result, symbols[0], "");
+            result = Regex.Replace(result, symbols[1], "");
+            result = Regex.Replace(result, symbols[2], "");
             result = Regex.Replace(result, symbols[3], String.Empty);
             result = Regex.Replace(result, symbols[4], String.Empty);
             result = Regex.Replace(result, symbols[5], String.Empty);
             result = Regex.Replace(result, symbols[6], String.Empty);
-            result = Regex.Replace(result, symbols[7], "i");
-            result = Regex.Replace(result, symbols[8], "m");
-            result = Regex.Replace(result, symbols[9], "n");
-            result = Regex.Replace(result, symbols[10], "p");
-            result = Regex.Replace(result, symbols[11], "c");
+            result = Regex.Replace(result, symbols[7], "");
+            result = Regex.Replace(result, symbols[8], "");
+            result = Regex.Replace(result, symbols[9], "");
+            result = Regex.Replace(result, symbols[10], "");
+            result = Regex.Replace(result, symbols[11], "");
             result = Regex.Replace(result, symbols[12], String.Empty);
             result = Regex.Replace(result, symbols[13], String.Empty);
             result = Regex.Replace(result, symbols[14], String.Empty);
             Console.WriteLine("REGEX: " + result);
             return result;
+
         }
     }
 }

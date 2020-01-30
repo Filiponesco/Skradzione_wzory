@@ -52,7 +52,8 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "CosineDistance",
-            "EuclideanDistance"});
+            "EuclideanDistance",
+            "Third"});
             this.comboBox1.Location = new System.Drawing.Point(269, 232);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 27);
@@ -65,9 +66,9 @@
             this.label1.Location = new System.Drawing.Point(126, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 31);
+            this.label1.Size = new System.Drawing.Size(253, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Plagiator 3000";
+            this.label1.Text = "PLAGFINDER 3000";
             // 
             // button1
             // 

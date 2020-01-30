@@ -21,6 +21,7 @@ namespace Plagiator3000
         double sum = 0;
         double main_proc = 0;
         int iter = 0;
+        int asd = 0;
         public string Load_Orig_Latex() //wczytywanie pliku z oryginalnym latexem
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -69,33 +70,48 @@ namespace Plagiator3000
                 Console.WriteLine("\nWZORY Z PLIKU: ");
 
                 string[] tab_plag = WZORY.Orig_Latex_Operation_Wzory(File_Latex); //tablica ktora przechowuje wzory z plagiatu. Po jednym przejsciu petli foreach wczutuje wzory z nastepnego pliku           
-
-                for (int i = 0; i < tab_oryg.Length; i++) //GLOWNA PETLA PROGRAMU. POROWNUJE WSZYSTKIE WZORY WYBRANYM ALGORYTMEM
-                {
-                    wzor_oryg = tab_oryg[i];
-
-                    for (int j = 0; j < tab_plag.Length; j++)
+                if (alg == "Third")
+                    for (int i = 0; i < tab_plag.Length; i++)
                     {
-                        wzor_plag = tab_plag[j];
-                        Console.WriteLine("\nWzor oryginalny: " + wzor_oryg);
-                        Console.WriteLine("Wzor plagiatu: " + wzor_plag);
-                        if (alg == "CosineDistance")
-                        {
-                            double cosDist = Algorytm.CosineDistance(wzor_oryg, wzor_plag);
-                            sameornot = Algorytm.ToPercent(alg, cosDist);
-                        }
-                        else 
-                        {
-                            double euclDist = Algorytm.EuclideanDistance(wzor_oryg, wzor_plag);
-                            sameornot = Algorytm.ToPercent(alg, euclDist);
-                        }
-                        Console.WriteLine("SAME OR NOT------------------------------------------ ???");
-                        Console.WriteLine(sameornot);
 
+                        double third = Algorytm.Trzeci(tab_oryg, tab_plag);
+                        sameornot = third;
+                        if (third < 0) sameornot = sameornot * -1;
+                        Console.WriteLine(fileName, sameornot);
                         listwithalgo.Add(sameornot);
-                        main_list.Add(new string[] {fileName, wzor_plag, wzor_oryg, sameornot.ToString() });
                         sum += sameornot;
                         iter++;
+                        asd = 1;
+                    }
+                else
+                {
+                    for (int i = 0; i < tab_oryg.Length; i++) //GLOWNA PETLA PROGRAMU. POROWNUJE WSZYSTKIE WZORY WYBRANYM ALGORYTMEM
+                    {
+                        wzor_oryg = tab_oryg[i];
+
+                        for (int j = 0; j < tab_plag.Length; j++)
+                        {
+                            wzor_plag = tab_plag[j];
+                            Console.WriteLine("\nWzor oryginalny: " + wzor_oryg);
+                            Console.WriteLine("Wzor plagiatu: " + wzor_plag);
+                            if (alg == "CosineDistance")
+                            {
+                                double cosDist = Algorytm.CosineDistance(wzor_oryg, wzor_plag);
+                                sameornot = Algorytm.ToPercent(alg, cosDist);
+                            }
+                            else
+                            {
+                                double euclDist = Algorytm.EuclideanDistance(wzor_oryg, wzor_plag);
+                                sameornot = Algorytm.ToPercent(alg, euclDist);
+                            }
+                            Console.WriteLine("SAME OR NOT------------------------------------------ ???");
+                            Console.WriteLine(sameornot);
+
+                            listwithalgo.Add(sameornot);
+                            main_list.Add(new string[] { fileName, wzor_plag, wzor_oryg, sameornot.ToString() });
+                            sum += sameornot;
+                            iter++;
+                        }
                     }
                 }
                 Console.WriteLine("-------------------------------------KONIEC PLIKU------------------------------------");
@@ -106,7 +122,7 @@ namespace Plagiator3000
                 sum = 0;
                 iter = 0;
             }
-
+            alg = "";
             raport(listmaintex, main_list, err);
         }
 
@@ -213,7 +229,6 @@ namespace Plagiator3000
             string prebody_tex2 = "";
             string body_html3 = "";
             string body_html4 = "";
-            tablica_wynikow_wzory = sotr(tablica_wynikow_wzory);
 
             //Tworzenie stringa z raportem ogólnym
             prebody_tex += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
@@ -221,7 +236,14 @@ namespace Plagiator3000
             {
                 if (tablica_wynikow[i] < int.Parse(err))
                 {
-                    body_tex += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "\\\\\n{\\huge Stopień podobieństwa: " + tablica_wynikow[i] + "\\%} \\\\ \n" + "\n\\end{flushleft}\n\\hrule\n";
+                    if (asd == 0)
+                    {
+                        body_tex += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "\\\\\n{\\huge Stopień podobieństwa: " + tablica_wynikow[i] + "\\%} \\\\ \n" + "\n\\end{flushleft}\n\\hrule\n";
+                    }
+                    else
+                    {
+                        body_tex += "\\begin{flushleft}\n" + "Plik : " + konwersjaSlowa(sciezki_test[i]) + "\\\\\n{\\Różnice ilości znaków między plikami: " + tablica_wynikow[i] + "\\%} \\\\ \n" + "\n\\end{flushleft}\n\\hrule\n";
+                    }
                 }
                 else
                 {
@@ -237,7 +259,7 @@ namespace Plagiator3000
             prebody_tex2 += "\\begin{flushleft}\n" + "Plik bazowy : " + konwersjaSlowa(path) + "\n\\end{flushleft}\n\\hrule\n";
             for (int i = 0; i < sciezki_test.Count; i++)
             {
-                string lista_wzorow2 = "\\begin{longtable}{|c|c|c|} \n \\hline \n Wzór & Jest podobny do wzoru oryginalnego & Procent podobieństwa \\\\ \\hline  \n";
+                string lista_wzorow2 = "\\begin{longtable}{|c|c|c|} \n \\hline \n Wzór & Jest podobny do & Procent podobieństwa \\\\ \\hline  \n";
                 for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
                 {
                     lista_wzorow2 += "$" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + "$ & $" + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + "$ & $" + tablica_wynikow_wzory[j][3] + "$ \\\\ \\hline \n";
@@ -253,11 +275,29 @@ namespace Plagiator3000
             {
                 if (tablica_wynikow[i] < int.Parse(err))//nie zaznacza na czerwono 
                 {
-                    body_html3 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <h2>Stopień podobieństwa: </h2> \n <h3> " + tablica_wynikow[i] + " </h3> \n <hr> \n";
+                    if (asd == 0)
+                    {
+                        body_html3 += "<h3>Plik: " + sciezki_test[i] +
+                                      " </h3> \n <h2>Stopień podobieństwa: </h2> \n <h3> " + tablica_wynikow[i] +
+                                      " </h3> \n <hr> \n";
+                    }
+                    else
+                    {
+                        body_html3 += "<h3>Plik: " + sciezki_test[i] +
+                                      " </h3> \n <h2>Różnica ilości znaków między plikami: </h2> \n <h3> " + tablica_wynikow[i] +
+                                      " </h3> \n <hr> \n";
+                    }
                 }
                 else//zaznacza na czerwono
                 {
-                    body_html3 += "<h3><font color=\"red\">Plik: " + sciezki_test[i] + " </font></h3> \n <h2>Stopień podobieństwa: </h2> \n <h3><font color=\"red\"> " + tablica_wynikow[i] + " </font></h3> \n <hr> \n";
+                    if (asd == 0)
+                    {
+                        body_html3 += "<h3><font color=\"red\">Plik: " + sciezki_test[i] + " </font></h3> \n <h2>Stopień podobieństwa: </h2> \n <h3><font color=\"red\"> " + tablica_wynikow[i] + " </font></h3> \n <hr> \n";
+                    }
+                    else
+                    {
+                        body_html3 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <h2>Rożnica ilości znaków między plikami: </h2> \n " + tablica_wynikow[i] + " </h3> \n <hr> \n";
+                    }
                 }
             }
             var raportTEX3 = "<!DOCTYPE html> \n <html lang=\"pl\"> \n <head> \n <meta charset=\"utf-8\"> \n <script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script> \n <title>Raport</title> \n </head> \n <body> \n <header> \n <h1>Raport ogólny porównania plików</h1> \n </header> \n <h2>Plik bazowy: " + path + "</h2> \n <hr> \n " + body_html3 + " </body> \n </html>";
@@ -265,7 +305,7 @@ namespace Plagiator3000
             //Tworzenie stringa z raportem szczegółowym
             for (int i = 0; i < sciezki_test.Count; i++)
             {
-                body_html4 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <hr> \n <table style=\"width:100% \"> \n <tr> \n <th>Wzór</th> \n <th>Jest podobny do wzoru oryginalnego </th> \n <th>Procent podobieństwa</th> \n </tr> \n";
+                body_html4 += "<h3>Plik: " + sciezki_test[i] + " </h3> \n <hr> \n <table style=\"width:100% \"> \n <tr> \n <th>Wzór</th> \n <th>Jest podobny do </th> \n <th>Procent podobieństwa</th> \n </tr> \n";
                 for (int j = 0; j < tablica_wynikow_wzory.Count; j++)
                 {
                     body_html4 += "<tr> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][1]) + " </script></td> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][2]) + " </script></td> \n <td><script type=\"math/tex; mode=display\"> " + konversjaNajlepszegoSlowaNaSwiecie(tablica_wynikow_wzory[j][3]) + " </script></td> \n </tr> \n";
@@ -288,8 +328,13 @@ namespace Plagiator3000
                 System.IO.File.WriteAllText(PATHtex2, raportTEX2);
                 System.IO.File.WriteAllText(PATHtex3, raportTEX3);
                 System.IO.File.WriteAllText(PATHtex4, raportTEX4);
+
                 Process.Start("chrome.exe", PATHtex3);
-                Process.Start("chrome.exe", PATHtex4);
+                if (asd == 0)
+                {
+                    Process.Start("chrome.exe", PATHtex4);
+                }
+
             }
             else if (!exists)
             {
@@ -298,38 +343,14 @@ namespace Plagiator3000
                 System.IO.File.WriteAllText(PATHtex2, raportTEX2);
                 System.IO.File.WriteAllText(PATHtex3, raportTEX3);
                 System.IO.File.WriteAllText(PATHtex4, raportTEX4);
+
                 Process.Start("chrome.exe", PATHtex3);
-                Process.Start("chrome.exe", PATHtex4);
+                if (asd == 0)
+                {
+                    Process.Start("chrome.exe", PATHtex4);
+                }
             }
             MessageBox.Show("Raport został stworzony");
-
-            sotr(tablica_wynikow_wzory);
-        }
-    
-        private List<string[]> sotr(List<string[]> lista)
-        {
-            List<string[]> done = new List<string[]> { };
-            int iter = lista.Count;
-            for(int i = 0; i < iter; i++)
-            {
-                int najm = 0;
-                for(int j = 0; j < iter - i; j++)
-                {
-                    if (float.Parse(lista[najm][3]) <= float.Parse(lista[j][3]))
-                    {
-                        najm = j;
-                    }
-                }
-
-                done.Add(lista[najm]);
-                lista.Remove(lista[najm]);
-            }
-
-            //for (int i = 0; i < iter; i++)
-            //{
-            //    Console.WriteLine(done[i][3]);
-            //}
-            return done;
         }
     }
 }
