@@ -110,61 +110,6 @@ namespace Plagiator3000
             raport(listmaintex, main_list, err);
         }
 
-        public List<String> baza(List<String> sciezki) 
-        {
-            List<String> wzory_baza = new List<string> { };//główna lista z bazą wzorów
-
-            foreach (string sciezka in sciezki)
-            {
-                string File_Latex = sciezka;
-                string text = File.ReadAllText(File_Latex);
-
-                text = File.ReadAllText(File_Latex).Replace(" ", "");
-
-                string[] text_split = text.Split(new char[] { });
-
-                string[] new_text = new string[text_split.Length];
-
-                int j = 0;
-                for (int i = 0; i < text_split.Length; i++)
-                {
-                    if (text_split[i] != "")
-                    {
-                        new_text[j] = text_split[i];
-                        j++;
-                    }
-                }
-
-                string[] mat = new string[new_text.Length];//tablica z wyodrębnionymi wzorami
-
-                int l = 0;
-
-                for (int i = 0; i < new_text.Length; i++)
-                {
-                    if (new_text[i] == @"\begin{math}")
-                    {
-                        mat[l] = new_text[i + 1];
-                        wzory_baza.Add(new_text[i + 1]);
-                        l++;
-                    }
-                    else if (new_text[i] == @"\begin{displaymath}")
-                    {
-                        mat[l] = new_text[i + 1];
-                        wzory_baza.Add(new_text[i + 1]);
-                        l++;
-                    }
-                    else if (new_text[i] == @"\begin{equation}")
-                    {
-                        mat[l] = new_text[i + 1];
-                        wzory_baza.Add(new_text[i + 1]);
-                        l++;
-                    }
-                }
-            }
-
-            return wzory_baza;//zwraca bazę
-        }
-
         public List<String> sciezki(string Path)
         {
             List<String> sciezki = new List<string> { };

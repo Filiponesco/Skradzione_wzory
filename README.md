@@ -60,3 +60,10 @@ result = (36.16923 - 0) / (44.65423 - 0) * (1 - 0) + 0
 result = 0.80998   
 
 Zatem wynik jest poprawny.
+
+# Źródła
+- tłumaczy co to cosine similarity(hinduski): https://www.youtube.com/watch?v=xY3jrJdpuQg
+- **blog wyjaśnia cosine similarity:** https://www.machinelearningplus.com/nlp/cosine-similarity/
+- zapis wzorów w Latex: http://www.latex-kurs.x25.pl/paper/tryb_matematyczny
+- https://stackoverflow.com/questions/1746501/can-someone-give-an-example-of-cosine-similarity-in-a-very-simple-graphical-wa
+- różnica między cosine similarity, a cosine distance: https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/cosdist.htm
