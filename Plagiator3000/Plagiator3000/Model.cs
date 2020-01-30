@@ -21,7 +21,7 @@ namespace Plagiator3000
         double sum = 0;
         double main_proc = 0;
         int iter = 0;
-        int asd;
+        int asd=0;
         public string Load_Orig_Latex() //wczytywanie pliku z oryginalnym latexem
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -75,15 +75,19 @@ namespace Plagiator3000
 
                         double third = Algorytm.Trzeci(tab_oryg, tab_plag);
                         sameornot = third;
-                        if (sameornot < 0) sameornot = sameornot * -1;
+                        if (third < 0) sameornot = sameornot * -1;
                         Console.WriteLine(fileName, sameornot);
                         listwithalgo.Add(sameornot);
                         sum += sameornot;
                         iter++;
                         asd = 1;
                     }
-                if (alg == "cosineDistanc" || alg == "EuclideanDistance")
-                    for (int i = 0; i < tab_oryg.Length; i++) //GLOWNA PETLA PROGRAMU. POROWNUJE WSZYSTKIE WZORY WYBRANYM ALGORYTMEM
+                else
+                {
+
+                    for (int i = 0;
+                        i < tab_oryg.Length;
+                        i++) //GLOWNA PETLA PROGRAMU. POROWNUJE WSZYSTKIE WZORY WYBRANYM ALGORYTMEM
                     {
                         wzor_oryg = tab_oryg[i];
 
@@ -108,11 +112,13 @@ namespace Plagiator3000
                             Console.WriteLine(sameornot);
 
                             listwithalgo.Add(sameornot);
-                            main_list.Add(new string[] { fileName, wzor_plag, wzor_oryg, sameornot.ToString() });
+                            main_list.Add(new string[] {fileName, wzor_plag, wzor_oryg, sameornot.ToString()});
                             sum += sameornot;
                             iter++;
                         }
                     }
+                }
+
                 Console.WriteLine("-------------------------------------KONIEC PLIKU------------------------------------");
 
                 main_proc = sum / iter;
@@ -122,7 +128,7 @@ namespace Plagiator3000
                 iter = 0;
             }
 
-            raport(listmaintex, main_list, err);
+            raport(listmaintex, main_list, err);                     
         }
 
         public List<String> baza(List<String> sciezki)
