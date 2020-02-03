@@ -1,7 +1,9 @@
 # Skradzione_wzory
  Semestr V inżynieria oprogramowania - projekt
- 
-# Testy
+# [Dokumentacja PDF](https://github.com/Filiponesco/Skradzione_wzory/blob/master/Dokumentacja/Dokumentacja_IO.pdf)
+# [Raport z przeprowadzonych testów PDF](https://github.com/Filiponesco/Skradzione_wzory/blob/master/Dokumentacja/Raport%20z%20przeprowadzonych%20test%C3%B3w.pdf)
+
+# Testy stałych wartości
 ## Baza danych
 Baza testowa składająca się z 10 plików oryginalnych oraz po 5 kopii dla każdego oryginału (w sumie 50 kopii) wyznaczyła następujące maksymalne wartości dla algorytmu "Euclidean distance":
  - 1: 23,72762
@@ -16,50 +18,6 @@ Baza testowa składająca się z 10 plików oryginalnych oraz po 5 kopii dla ka�
  - 10: 15,19868
 
 Wartość maksymalna została przypisana do zmiennej "maxOfEuclidean" w klasie: "Algorytm.cs"
-
-## Algorytmy: 
-### Cosine distance
- Po wprowadzeniu identycznych danych jak na stronie internetowej: https://neo4j.com/docs/graph-algorithms/current/labs-algorithms/cosine/
- otrzymaliśmy identyczny wynik.
- 
- #### Strona internetowa
-![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/zrzut_strony.JPG)
-
-#### Nasz wynik
-![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/zrzut_raportu_html.JPG)
-
-
-### Euclidean distance
-
- #### Strona internetowa
-![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/euclidean_source.JPG)
-
-#### Nasz wynik
-![alt text](https://github.com/Filiponesco/Skradzione_wzory/blob/master/html_euclidean.JPG)
-
-Nasz wynik wynosi: 80,9978148228733, jest to procent podobieństwa. Sam algorytm euclidean distance zwraca dystans z przedziału od 0 do nieskończoności. Wyznaczyliśmy maksymalną granicę poprzez "przepuszczenie" algorytmu przez cała bazę danych. MaxOfEuclidean wynosi dla naszej bazy 44.65423.
-Procent podobieństwa wyznaczony jest wg następującego kodu: 
-
-lb - wartość zwrócona przez algorytm
-
-```
-double pom = (double) (maxOfEuclidean - lb);
-result = Scale(pom, 0.0, maxOfEuclidean, 0.0, 1.0);
-
-private static double Scale(double value, double min, double max, double toMin, double toMax)
-{
-    //y=mx+c
-    double result = (value - min) / (max - min) * (toMax - toMin) + toMin;
-    return result;
-    }
-```
-Na końcu rezultat mnożony jest razy 100.
-
-pom = 44.65423 - 8.485 = 36.16923   
-result = (36.16923 - 0) / (44.65423 - 0) * (1 - 0) + 0   
-result = 0.80998   
-
-Zatem wynik jest poprawny.
 
 # Źródła
 - tłumaczy co to cosine similarity(hinduski): https://www.youtube.com/watch?v=xY3jrJdpuQg
